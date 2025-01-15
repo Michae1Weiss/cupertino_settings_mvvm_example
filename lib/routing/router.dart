@@ -11,7 +11,7 @@ GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        HomeViewModel viewModel = HomeViewModel(fruitRepository: context.read());
+        HomeViewModel viewModel = HomeViewModel(fruitRepository: context.watch());
         return HomeScreen(viewModel: viewModel,);
       },
       routes: [

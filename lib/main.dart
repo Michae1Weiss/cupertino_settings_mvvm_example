@@ -14,8 +14,21 @@ void main() {
       Provider(create: (context) => MockApiService(),),
       Provider(create: (context) => RealApiService(),),
       // --- repositories ---
-      Provider(create: (context) => SettingsRepository(),),
-      Provider(create: (context) => FruitRepository(apiService: RealApiService()),)
+      ChangeNotifierProvider<SettingsRepository>(
+        create: (context) => SettingsRepository(),
+        lazy: false,
+      ),
+      ProxyProvider<SettingsRepository, FruitRepository>(
+        update: (context, settingsRepository, _) {
+          if (settingsRepository.useMockApiFlag) {
+            return FruitRepository(apiService: context.read<MockApiService>());
+          } else {
+            return FruitRepository(apiService: context.read<RealApiService>());
+          }
+        },
+        lazy: false,
+      )
+      // Provider(create: (context) => FruitRepository(apiService: context.watch()),)
     ],
     child: const MainApp(),
   ));

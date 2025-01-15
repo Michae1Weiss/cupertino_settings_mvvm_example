@@ -1,12 +1,23 @@
 import 'package:async/async.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsRepository {
+class SettingsRepository extends ChangeNotifier {
+  SettingsRepository() {
+    readUseMockApiFlag();
+  }
+
+  bool _useMockApiFlag = false;
+
+  bool get useMockApiFlag => _useMockApiFlag;
+
   Future<Result<void>> setUseMockApiFlag(bool flag) async {
     // Obtain shared preferences.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setBool("useMockApi", flag);
+    _useMockApiFlag = flag;
+    notifyListeners();
 
     return Result.value(null);
   }
@@ -22,5 +33,14 @@ class SettingsRepository {
     }
 
     return Result.value(flag);
+  }
+
+  Future<void> readUseMockApiFlag() async {
+    var result = await getUseMockApiFlag();
+
+    if (result.isValue) {
+      _useMockApiFlag = result.asValue!.value;
+      notifyListeners();
+    }
   }
 }
