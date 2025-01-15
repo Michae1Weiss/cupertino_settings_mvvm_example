@@ -12,18 +12,25 @@ class SettingsScreen extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Text("Settings"),
       ),
-      child: CupertinoFormSection(
-        children: [
-          CupertinoFormRow(
-            prefix: Text("Mock Mode"),
-            child: CupertinoSwitch(
-              value: false,
-              onChanged: (value) {
-                // TODO
-              },
-            )
-          )
-        ],
+      child: ListenableBuilder(
+        listenable: viewModel,
+        builder: (context, _) {
+          return SafeArea(
+            child: CupertinoFormSection(
+              children: [
+                CupertinoFormRow(
+                  prefix: Text("Mock Mode"),
+                  child: CupertinoSwitch(
+                    value: viewModel.flag,
+                    onChanged: (value) async {
+                      await viewModel.toggleUseMockApiFlag();
+                    },
+                  )
+                )
+              ],
+            ),
+          );
+        }
       ),
     );
   }

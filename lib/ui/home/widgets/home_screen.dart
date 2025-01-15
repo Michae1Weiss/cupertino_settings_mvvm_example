@@ -22,19 +22,21 @@ class HomeScreen extends StatelessWidget {
             ),
             middle: Text("Fruit Deluxe"),
           ),
-          child: Center(
-            child: Builder(
-              builder: (context) {
-                if (viewModel.fruit != null) {
-                  String fruitName = viewModel.fruit!.name;
-                  return Text("Hey, $fruitName!");
+          child: SafeArea(
+            child: Center(
+              child: Builder(
+                builder: (context) {
+                  if (viewModel.fruit != null) {
+                    String fruitName = viewModel.fruit!.name;
+                    return Text("Hey, $fruitName!");
+                  }
+                  if (viewModel.error != null) {
+                    String error = viewModel.error!;
+                    return Text("Error: $error");
+                  }
+                  return Text("Huh? Poor writen app! Contact support!");
                 }
-                if (viewModel.error != null) {
-                  String error = viewModel.error!;
-                  return Text("Error: $error");
-                }
-                return Text("Huh? Poor writen app! Contact support!");
-              }
+              ),
             ),
           ),
         );
