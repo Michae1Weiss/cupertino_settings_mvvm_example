@@ -5,7 +5,10 @@ import '../../../domain/models/fruit.dart';
 
 class HomeViewModel extends ChangeNotifier {
   HomeViewModel({required FruitRepository fruitRepository})
-    : _fruitRepository = fruitRepository;
+    : _fruitRepository = fruitRepository {
+      load();
+  }
+
   // --- privat attributes ---
   final FruitRepository _fruitRepository;
   Fruit ?_fruit;
