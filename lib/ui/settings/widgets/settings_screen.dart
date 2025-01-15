@@ -8,6 +8,23 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text("Settings"),
+      ),
+      child: CupertinoFormSection(
+        children: [
+          CupertinoFormRow(
+            prefix: Text("Mock Mode"),
+            child: CupertinoSwitch(
+              value: false,
+              onChanged: (value) {
+                // TODO
+              },
+            )
+          )
+        ],
+      ),
+    );
   }
 }
