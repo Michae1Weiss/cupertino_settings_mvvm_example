@@ -4,9 +4,8 @@ import 'package:cupertino_settings_mvvm_example/data/services/api_service.dart';
 import 'package:cupertino_settings_mvvm_example/domain/models/fruit.dart';
 
 class FruitRepository {
-  FruitRepository({required ApiService apiService})
-    : _apiService = apiService;
-  
+  FruitRepository({required ApiService apiService}) : _apiService = apiService;
+
   final ApiService _apiService;
 
   Result<Fruit> getFruit() {

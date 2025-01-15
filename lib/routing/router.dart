@@ -16,7 +16,8 @@ GoRouter router = GoRouter(
         GoRoute(
           path: '/settings',
           builder: (context, state) {
-            SettingsViewModel viewModel = SettingsViewModel(settingsRepository: context.read());
+            SettingsViewModel viewModel =
+                SettingsViewModel(settingsRepository: context.read());
             return SettingsScreen(viewModel: viewModel);
           },
         ),

@@ -10,6 +10,5 @@ class Fruit with _$Fruit {
     required String color,
   }) = _Fruit;
 
-  factory Fruit.fromJson(Map<String, Object?> json) =>
-      _$FruitFromJson(json);
+  factory Fruit.fromJson(Map<String, Object?> json) => _$FruitFromJson(json);
 }
