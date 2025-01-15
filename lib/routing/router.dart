@@ -1,3 +1,4 @@
+import 'package:cupertino_settings_mvvm_example/ui/home/view_model/home_view_model.dart';
 import 'package:cupertino_settings_mvvm_example/ui/home/widgets/home_screen.dart';
 import 'package:cupertino_settings_mvvm_example/ui/settings/view_model/settings_view_model.dart';
 import 'package:cupertino_settings_mvvm_example/ui/settings/widgets/settings_screen.dart';
@@ -10,7 +11,8 @@ GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return HomeScreen();
+        HomeViewModel viewModel = HomeViewModel();
+        return HomeScreen(viewModel: viewModel,);
       },
       routes: [
         GoRoute(
