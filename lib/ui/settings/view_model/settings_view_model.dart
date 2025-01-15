@@ -6,4 +6,12 @@ class SettingsViewModel extends ChangeNotifier{
     : _settingsRepository = settingsRepository;
 
   final SettingsRepository _settingsRepository;
+
+  bool getUseMockApiFlag() {
+    return false;
+  }
+
+  bool toggleUseMockApiFlag() {
+    return false;
+  }
 }
