@@ -13,31 +13,46 @@ class HomeScreen extends StatelessWidget {
       listenable: viewModel,
       builder: (context, _) {
         return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            leading: CupertinoButton(
-              child: Icon(CupertinoIcons.settings),
-              onPressed: () {
-                context.go('/settings');
-              },
-            ),
-            middle: Text("Fruit Deluxe"),
-          ),
-          child: SafeArea(
-            child: Center(
-              child: Builder(
-                builder: (context) {
-                  if (viewModel.fruit != null) {
-                    String fruitName = viewModel.fruit!.name;
-                    return Text("Hey, $fruitName!");
-                  }
-                  if (viewModel.error != null) {
-                    String error = viewModel.error!;
-                    return Text("Error: $error");
-                  }
-                  return Text("Huh? Poor writen app! Contact support!");
-                }
+          child: CustomScrollView(
+            slivers: [
+              CupertinoSliverNavigationBar(
+                //leading: Icon(CupertinoIcons.settings),
+                leading: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: Icon(CupertinoIcons.settings, size: 25,),
+                  onPressed: () {
+                    context.go('/settings');
+                  },
+                ),
+                largeTitle: Text("Fruit Deluxe"),
+                trailing: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: Icon(CupertinoIcons.plus, size: 25,),
+                  onPressed: () {
+                    // TODO
+                  },
+                ),
               ),
-            ),
+              // This widget fills the remaining space in the viewport.
+              // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
+              SliverFillRemaining(
+                child: Center(
+                  child: Builder(
+                    builder: (context) {
+                      if (viewModel.fruit != null) {
+                        String fruitName = viewModel.fruit!.name;
+                        return Text("Hey, $fruitName!");
+                      }
+                      if (viewModel.error != null) {
+                        String error = viewModel.error!;
+                        return Text("Error: $error");
+                      }
+                      return Text("Huh? Poor writen app! Contact support!");
+                    }
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       }
