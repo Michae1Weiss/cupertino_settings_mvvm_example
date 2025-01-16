@@ -16,7 +16,7 @@ void main() {
       // --- repositories ---
       ChangeNotifierProvider<SettingsRepository>(
         create: (context) => SettingsRepository(),
-        lazy: false,
+        //lazy: false,
       ),
       ProxyProvider<SettingsRepository, FruitRepository>(
         update: (context, settingsRepository, _) {
@@ -26,7 +26,7 @@ void main() {
             return FruitRepository(apiService: context.read<RealApiService>());
           }
         },
-        lazy: false,
+        //lazy: false,
       )
       // Provider(create: (context) => FruitRepository(apiService: context.watch()),)
     ],
