@@ -4,6 +4,7 @@ import 'package:cupertino_settings_mvvm_example/ui/settings/view_model/settings_
 import 'package:cupertino_settings_mvvm_example/ui/settings/widgets/settings_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:sheet/route.dart';
 
 GoRouter router = GoRouter(
   initialLocation: '/',
@@ -17,10 +18,12 @@ GoRouter router = GoRouter(
       routes: [
         GoRoute(
           path: '/settings',
-          builder: (context, state) {
+          pageBuilder: (context, state) {
             SettingsViewModel viewModel =
                 SettingsViewModel(settingsRepository: context.read());
-            return SettingsScreen(viewModel: viewModel);
+            return CupertinoSheetPage<void>(
+              child: SettingsScreen(viewModel: viewModel)
+            );
           },
         ),
       ],
