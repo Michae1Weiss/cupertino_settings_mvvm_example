@@ -40,26 +40,77 @@ class HomeScreen extends StatelessWidget {
               // This widget fills the remaining space in the viewport.
               // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
               SliverFillRemaining(
-                child: Center(
-                  child: Builder(
-                    builder: (context) {
-                      if (viewModel.fruit != null) {
-                        String fruitName = viewModel.fruit!.name;
-                        return Text("Hey, $fruitName!");
-                      }
-                      if (viewModel.error != null) {
-                        String error = viewModel.error!;
-                        return Text("Error: $error");
-                      }
-                      return Text("Huh? Poor writen app! Contact support!");
-                    }
-                  ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: Builder(
+                          builder: (context) {
+                            if (viewModel.fruit != null) {
+                              String fruitName = viewModel.fruit!.name;
+                              return Text("Hey, $fruitName!");
+                            }
+                            if (viewModel.error != null) {
+                              String error = viewModel.error!;
+                              return Text("Error: $error");
+                            }
+                            return Text("Huh? Poor writen app! Contact support!");
+                          }
+                        ),
+                      ),
+                    ),
+                    bottomAppBar(context),
+                  ],
                 ),
               ),
             ],
           ),
         );
       }
+    );
+  }
+
+  Widget bottomAppBar(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            width: 0.5,
+            color: CupertinoColors.separator.resolveFrom(context),
+          ),
+        ),
+        color: CupertinoTheme.of(context).barBackgroundColor,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          CupertinoButton(
+            onPressed: () {},
+            minSize: 0,
+            child: Icon(
+              CupertinoIcons.arrow_clockwise,
+              size: 25,
+            ),
+          ),
+          /*
+          CupertinoButton(
+            onPressed: () {},
+            minSize: 0,
+            child: Icon(CupertinoIcons.heart, size: 25),
+          ),
+          */
+          CupertinoButton(
+            onPressed: () {
+              context.go('/send');
+            },
+            minSize: 0,
+            child: Icon(
+              CupertinoIcons.paperplane,
+              size: 25
+            ),
+          )
+        ],
+      ),
     );
   }
 }

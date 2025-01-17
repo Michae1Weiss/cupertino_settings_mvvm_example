@@ -1,6 +1,7 @@
 import 'package:cupertino_settings_mvvm_example/ui/create/widgets/create_screen.dart';
 import 'package:cupertino_settings_mvvm_example/ui/home/view_model/home_view_model.dart';
 import 'package:cupertino_settings_mvvm_example/ui/home/widgets/home_screen.dart';
+import 'package:cupertino_settings_mvvm_example/ui/send/widgets/send_screen.dart';
 import 'package:cupertino_settings_mvvm_example/ui/settings/view_model/settings_view_model.dart';
 import 'package:cupertino_settings_mvvm_example/ui/settings/widgets/settings_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -65,7 +66,16 @@ GoRouter router = GoRouter(
               child: CreateScreen(),
             );
           }
-        )
+        ),
+        GoRoute(
+          path: 'send',
+          pageBuilder: (context, state) {
+            return CupertinoSheetPage(
+              key: state.pageKey,
+              child: SendScreen(),
+            );
+          }
+        ),
       ],
     ),
   ],
