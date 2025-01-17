@@ -11,17 +11,20 @@ GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         HomeViewModel viewModel = HomeViewModel(fruitRepository: context.watch());
-        return HomeScreen(viewModel: viewModel,);
+        return CupertinoExtendedPage(
+          child: HomeScreen(viewModel: viewModel,)
+        );
       },
       routes: [
         GoRoute(
           path: '/settings',
           pageBuilder: (context, state) {
-            SettingsViewModel viewModel =
-                SettingsViewModel(settingsRepository: context.read());
+            var viewModel = SettingsViewModel(settingsRepository: context.read());
             return CupertinoSheetPage<void>(
+              key: state.pageKey,
+              name: "Haha",
               child: SettingsScreen(viewModel: viewModel)
             );
           },
