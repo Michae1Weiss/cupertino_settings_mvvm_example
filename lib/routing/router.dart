@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sheet/route.dart';
 
+import '../ui/new_position/widgets/new_position_screen.dart';
 import '../ui/settings/widgets/advanced_settings_screen.dart';
 
   final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -38,7 +39,7 @@ GoRouter router = GoRouter(
               parentNavigatorKey: nestedNavigationKey,
               pageBuilder: (context, state) {
                 var viewModel = SettingsViewModel(settingsRepository: context.read());
-                return CupertinoPage<void>(
+                return CupertinoExtendedPage<void>(
                   key: state.pageKey,
                   child: SettingsScreen(viewModel: viewModel)
                 );
@@ -48,7 +49,7 @@ GoRouter router = GoRouter(
                   path: 'advanced',
                   parentNavigatorKey: nestedNavigationKey,
                   pageBuilder: (context, state) {
-                    return CupertinoPage(
+                    return CupertinoExtendedPage(
                       key: state.pageKey,
                       child: AdvancedSettingsScreen(),
                     );
@@ -59,13 +60,24 @@ GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: 'create',
+          path: 'create',  // TODO: rename
           pageBuilder: (context, state) {
-            return CupertinoPage(
+            return CupertinoExtendedPage(
               key: state.pageKey,
               child: CreateScreen(),
             );
-          }
+          },
+          routes: [
+            GoRoute(
+              path: 'new',
+              pageBuilder: (context, state) {
+                return CupertinoSheetPage(
+                  key: state.pageKey,
+                  child: NewPositionScreen(),
+                );
+              }
+            ),
+          ]
         ),
         GoRoute(
           path: 'send',

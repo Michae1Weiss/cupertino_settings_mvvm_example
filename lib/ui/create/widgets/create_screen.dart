@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateScreen extends StatelessWidget {
 
@@ -45,7 +46,9 @@ class CreateScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           CupertinoButton(
-            onPressed: () {},
+            onPressed: () {
+              context.go('/create/new');
+            },
             minSize: 0,
             child: Icon(
               CupertinoIcons.add,
