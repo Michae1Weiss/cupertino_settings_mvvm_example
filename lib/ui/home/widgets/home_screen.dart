@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
                 //leading: Icon(CupertinoIcons.settings),
                 leading: CupertinoButton(
                   padding: EdgeInsets.zero,
+                  minSize: 0,
                   child: Icon(CupertinoIcons.settings, size: 25,),
                   onPressed: () {
                     context.go('/settings');
@@ -28,9 +29,11 @@ class HomeScreen extends StatelessWidget {
                 largeTitle: Text("Fruit Deluxe"),
                 trailing: CupertinoButton(
                   padding: EdgeInsets.zero,
+                  minSize: 0,
                   child: Icon(CupertinoIcons.plus, size: 25,),
                   onPressed: () {
                     // ...
+                    context.go('/create');
                   }
                 ),
               ),

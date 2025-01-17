@@ -1,5 +1,6 @@
 import 'package:cupertino_settings_mvvm_example/ui/settings/view_model/settings_view_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key, required this.viewModel});
@@ -26,7 +27,17 @@ class SettingsScreen extends StatelessWidget {
                       await viewModel.toggleUseMockApiFlag();
                     },
                   )
-                )
+                ),
+                CupertinoFormRow(
+                  prefix: Text("Advanced Settings"),
+                  child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: Icon(CupertinoIcons.gobackward),
+                    onPressed: () {
+                      context.go('/settings/advanced');
+                    },
+                  )
+                ),
               ],
             ),
           );
