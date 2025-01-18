@@ -66,7 +66,9 @@ class CreateScreen extends StatelessWidget {
           ),
           */
           CupertinoButton(
-            onPressed: () {},
+            onPressed: () {
+              showFormSheet(context);
+            },
             minSize: 0,
             child: Icon(
               CupertinoIcons.qrcode,
@@ -123,6 +125,53 @@ class CreateScreen extends StatelessWidget {
           size: 25,
         ),
       ),
+    );
+  }
+
+  void showFormSheet(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.7, // Centered, fixed width
+            height: MediaQuery.of(context).size.height * 0.5, // Customize as needed
+            decoration: BoxDecoration(
+              color: CupertinoColors.systemBackground,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                Text(
+                  'Form Sheet Title',
+                  style: CupertinoTheme.of(context).textTheme.navTitleTextStyle,
+                ),
+                Expanded(
+                  child: CupertinoScrollbar(
+                    child: ListView(
+                      padding: EdgeInsets.all(16),
+                      children: [
+                        CupertinoTextField(placeholder: 'Field 1'),
+                        SizedBox(height: 16),
+                        CupertinoTextField(placeholder: 'Field 2'),
+                        SizedBox(height: 16),
+                        CupertinoButton(
+                          child: Text('Submit'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
