@@ -39,8 +39,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var settings = context.watch<SettingsRepository>();
+    var brightness = settings.useDarkTheme ? Brightness.dark : Brightness.light;
     return CupertinoApp.router(
-      theme: CupertinoThemeData(brightness: Brightness.light),
+      theme: CupertinoThemeData(brightness: brightness),
       routerConfig: router,
     );
   }

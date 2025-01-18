@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
                   child: CupertinoSwitch(
                     value: viewModel.useDarkTheme,
                     onChanged: (value) async {
-                      await viewModel.toggleUseMockApiFlag();
+                      await viewModel.toggleUseDarkTheme();
                     },
                   )
                 ),

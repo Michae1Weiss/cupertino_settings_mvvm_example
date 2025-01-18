@@ -17,7 +17,8 @@ class SettingsRepository extends ChangeNotifier {
     // Obtain shared preferences.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    _useMockApiFlag = await prefs.setBool("useMockApi", flag);
+    await prefs.setBool("useMockApi", flag);
+    _useMockApiFlag = flag;
     notifyListeners();
 
     return Result.value(null);
@@ -27,7 +28,8 @@ class SettingsRepository extends ChangeNotifier {
     // Obtain shared preferences.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    _useDarkTheme = await prefs.setBool("useDarkTheme", flag);
+    await prefs.setBool("useDarkTheme", flag);
+    _useDarkTheme = flag;
     notifyListeners();
 
     return Result.value(null);
@@ -73,6 +75,6 @@ class SettingsRepository extends ChangeNotifier {
 
     if (result.isValue || resultUDT.isValue) {
       notifyListeners();
-    } 
+    }
   }
 }
