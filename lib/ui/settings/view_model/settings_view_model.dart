@@ -4,28 +4,47 @@ import 'package:flutter/cupertino.dart';
 class SettingsViewModel extends ChangeNotifier {
   SettingsViewModel({required SettingsRepository settingsRepository})
       : _settingsRepository = settingsRepository {
-    getUseMockApiFlag();
+    readSettings();
   }
 
   final SettingsRepository _settingsRepository;
 
-  bool _flag = false;
-  bool get flag => _flag;
+  bool _useMockApi = false;
+  bool _useDarkTheme = false;
+  bool get useMockApi => _useMockApi;
+  bool get useDarkTheme => _useDarkTheme;
 
-  Future<void> getUseMockApiFlag() async {
+  Future<void> readSettings() async {
     var useMockApiFlag = await _settingsRepository.getUseMockApiFlag();
+    var useDarkTheme = await _settingsRepository.getUseDarkTheme();
 
     if (useMockApiFlag.isValue) {
-      _flag = useMockApiFlag.asValue!.value;
+      _useMockApi = useMockApiFlag.asValue!.value;
+    }
+
+    if (useDarkTheme.isValue) {
+      _useDarkTheme = useDarkTheme.asValue!.value;
+    }
+
+    if (useMockApiFlag.isValue || useDarkTheme.isValue) {
       notifyListeners();
     }
   }
 
   Future<void> toggleUseMockApiFlag() async {
-    bool newFlag = !_flag;
+    bool newFlag = !_useMockApi;
     var result = await _settingsRepository.setUseMockApiFlag(newFlag);
     if (result.isValue) {
-      _flag = newFlag;
+      _useMockApi = newFlag;
+      notifyListeners();
+    }
+  }
+
+  Future<void> toggleUseDarkTheme() async {
+    bool newFlag = !_useDarkTheme;
+    var result = await _settingsRepository.setUseDarkTheme(newFlag);
+    if (result.isValue) {
+      _useDarkTheme = newFlag;
       notifyListeners();
     }
   }

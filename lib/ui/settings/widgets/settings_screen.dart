@@ -22,7 +22,16 @@ class SettingsScreen extends StatelessWidget {
                 CupertinoFormRow(
                   prefix: Text("Mock Mode"),
                   child: CupertinoSwitch(
-                    value: viewModel.flag,
+                    value: viewModel.useMockApi,
+                    onChanged: (value) async {
+                      await viewModel.toggleUseMockApiFlag();
+                    },
+                  )
+                ),
+                CupertinoFormRow(
+                  prefix: Text("Use Dark Theme"),
+                  child: CupertinoSwitch(
+                    value: viewModel.useDarkTheme,
                     onChanged: (value) async {
                       await viewModel.toggleUseMockApiFlag();
                     },
