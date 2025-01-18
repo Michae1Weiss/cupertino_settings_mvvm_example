@@ -14,54 +14,65 @@ class HomeScreen extends StatelessWidget {
       listenable: viewModel,
       builder: (context, _) {
         return CupertinoPageScaffold(
-          child: CustomScrollView(
-            slivers: [
-              CupertinoSliverNavigationBar(
-                //leading: Icon(CupertinoIcons.settings),
-                leading: CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  minSize: 0,
-                  child: Icon(CupertinoIcons.settings, size: 25,),
-                  onPressed: () {
-                    context.go('/settings');
-                  },
-                ),
-                largeTitle: Text("Fruit Deluxe"),
-                trailing: CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  minSize: 0,
-                  child: Icon(CupertinoIcons.plus, size: 25,),
-                  onPressed: () {
-                    // ...
-                    context.go('/create');
-                  }
-                ),
-              ),
-              // This widget fills the remaining space in the viewport.
-              // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
-              SliverFillRemaining(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: Builder(
-                          builder: (context) {
-                            if (viewModel.fruit != null) {
-                              String fruitName = viewModel.fruit!.name;
-                              return Text("Hey, $fruitName!");
-                            }
-                            if (viewModel.error != null) {
-                              String error = viewModel.error!;
-                              return Text("Error: $error");
-                            }
-                            return Text("Huh? Poor writen app! Contact support!");
-                          }
-                        ),
-                      ),
+          child: Stack(
+            children: [
+              CustomScrollView(
+                slivers: [
+                  CupertinoSliverNavigationBar(
+                    //leading: Icon(CupertinoIcons.settings),
+                    leading: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      minSize: 0,
+                      child: Icon(CupertinoIcons.settings, size: 25,),
+                      onPressed: () {
+                        context.go('/settings');
+                      },
                     ),
-                    bottomAppBar(context),
-                  ],
-                ),
+                    largeTitle: Text("Fruit Deluxe"),
+                    trailing: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      minSize: 0,
+                      child: Icon(CupertinoIcons.plus, size: 25,),
+                      onPressed: () {
+                        // ...
+                        context.go('/create');
+                      }
+                    ),
+                  ),
+                  // This widget fills the remaining space in the viewport.
+                  // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
+                  SliverFillRemaining(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Builder(
+                              builder: (context) {
+                                if (viewModel.fruit != null) {
+                                  String fruitName = viewModel.fruit!.name;
+                                  return Text("Hey, $fruitName!");
+                                }
+                                if (viewModel.error != null) {
+                                  String error = viewModel.error!;
+                                  return Text("Error: $error");
+                                }
+                                return Text("Huh? Poor writen app! Contact support!");
+                              }
+                            ),
+                          ),
+                        ),
+                        
+                        // bottomAppBar(context),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: bottomAppBar(context),
               ),
             ],
           ),
