@@ -6,6 +6,8 @@ class CreateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var catImage = AssetImage('assets/cat.jpg');
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Placeholder(),
@@ -22,7 +24,7 @@ class CreateScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Placeholder(),
+              child: Image(image: catImage),
             ),
             bottomAppBar(context),
           ],
