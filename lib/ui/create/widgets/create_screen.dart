@@ -175,23 +175,3 @@ class CreateScreen extends StatelessWidget {
     );
   }
 }
-
-// class CupertinoAddButton extends StatelessWidget {
-//   const CupertinoAddButton({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CupertinoButton(
-//       padding: EdgeInsets.zero,
-//       onPressed: () {
-
-//       },
-//       minSize: 0,
-//       child: Icon(
-//         CupertinoIcons.add,
-//         color: CupertinoTheme.of(context).primaryColor,
-//         size: 25,
-//       ),
-//     );
-//   }
-// }
