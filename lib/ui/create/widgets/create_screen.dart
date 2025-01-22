@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class CreateScreen extends StatelessWidget {
-
+  const CreateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +13,6 @@ class CreateScreen extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Placeholder(),
         trailing: cupertinoPullDownButton(context),
-        //trailing: CupertinoButton(
-        //  padding: EdgeInsets.zero, // Add appropriate padding
-        //  child: Icon(CupertinoIcons.gobackward),
-        //  onPressed: () {
-        //    // TODO
-        //  },
-        //),
       ),
       child: SafeArea(
         child: Column(
@@ -58,13 +51,6 @@ class CreateScreen extends StatelessWidget {
               size: 25,
             ),
           ),
-          /*
-          CupertinoButton(
-            onPressed: () {},
-            minSize: 0,
-            child: Icon(CupertinoIcons.heart, size: 25),
-          ),
-          */
           CupertinoButton(
             onPressed: () {
               showFormSheet(context);

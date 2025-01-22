@@ -1,7 +1,6 @@
 import 'package:cupertino_settings_mvvm_example/ui/home/view_model/home_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../core/widgets/floating_sheet.dart';
 import 'cupertino_example_form.dart';
@@ -23,8 +22,7 @@ class HomeScreen extends StatelessWidget {
                 CustomScrollView(
                   slivers: [
                     CupertinoSliverNavigationBar(
-                      //leading: Icon(CupertinoIcons.settings),
-                      leading: CupertinoButton(
+                        leading: CupertinoButton(
                         padding: EdgeInsets.zero,
                         minSize: 0,
                         child: Icon(
@@ -160,13 +158,6 @@ class HomeScreen extends StatelessWidget {
               size: 25,
             ),
           ),
-          /*
-          CupertinoButton(
-            onPressed: () {},
-            minSize: 0,
-            child: Icon(CupertinoIcons.heart, size: 25),
-          ),
-          */
           CupertinoButton(
             onPressed: () {
               context.go('/send');
