@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sheet/route.dart';
 import 'package:sheet/sheet.dart';
@@ -47,6 +48,18 @@ class CupertinoFloatingSheetRoute<T> extends SheetRoute<T> {
           // See: https://github.com/jamesblasco/modal_bottom_sheet/blob/a87f82b4872042ca0ff2f5d5ab75c432532b94b5/sheet/lib/src/route/cupertino/sheet_route.dart#L39
           animationCurve: Curves.easeOutExpo,
           fit: SheetFit.loose,
+          /*
+          decorationBuilder: (context, child) {
+            return Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                color: backgroundColor ??
+                    CupertinoColors.systemBackground.resolveFrom(context),
+              ),
+              child: child,
+            );
+          },
+          */
         );
 }
 
@@ -54,11 +67,17 @@ class CupertinoFormSheetPage<T> extends Page<T> {
   /// Creates a material page.
   const CupertinoFormSheetPage({
     required this.child,
+    this.maintainState = true,
     super.key,
+    super.name,
+    super.arguments,
   });
 
   /// The content to be shown in the [Route] created by this page.
   final Widget child;
+
+  /// {@macro flutter.widgets.modalRoute.maintainState}
+  final bool maintainState;
 
   @override
   Route<T> createRoute(BuildContext context) {
@@ -69,6 +88,10 @@ class CupertinoFormSheetPage<T> extends Page<T> {
 class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
   _PageBasedCupertinoSheetRoute({
     required CupertinoFormSheetPage<T> page,
+    super.stops,
+    super.initialStop,
+    super.backgroundColor,
+    super.maintainState,
   }) : super(
           settings: page,
           builder: (BuildContext context) {
@@ -77,4 +100,12 @@ class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
                 .child;
           },
         );
+
+  CupertinoSheetPage<T> get _page => settings as CupertinoSheetPage<T>;
+
+  @override
+  bool get maintainState => _page.maintainState;
+
+  @override
+  String get debugLabel => '${super.debugLabel}(${_page.name})';
 }
