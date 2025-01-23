@@ -5,7 +5,7 @@ class ScrollScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> elements = List.generate(10, (index) {
+    List<Widget> elements = List.generate(20, (index) {
       return CupertinoListTile(
         title: Text(index.toString()),
         leading: Text("test"),
@@ -13,18 +13,24 @@ class ScrollScreen extends StatelessWidget {
     });
 
     return CupertinoPageScaffold(
+      // Ref: https://stackoverflow.com/questions/52472220/child-widget-of-cupertinopagescaffold-is-behind-cupertinonavigationbar
       navigationBar: CupertinoNavigationBar(
         middle: Placeholder(),
       ),
-      child: Column(
-        children: [
-          Expanded(
-            child: CupertinoListSection(
-              children: elements,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: CupertinoScrollbar(
+                child: CupertinoListSection(
+                  header: Text("Elements"),
+                  children: elements,
+                ),
+              ),
             ),
-          ),
-          bottomAppBar(context),
-        ],
+            bottomAppBar(context),
+          ],
+        ),
       ),
     );
   }
