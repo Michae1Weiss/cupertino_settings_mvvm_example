@@ -10,13 +10,14 @@ class AdvancedSettingsScreen extends StatelessWidget {
         middle: Text("Advanced"),
       ),
       child: SafeArea(
-        child: CupertinoFormSection(
+        child: CupertinoFormSection.insetGrouped(
+          header: Text("Experimental"),
           children: [
             CupertinoFormRow(
               prefix: Text("Advanced Switch"),
               child: CupertinoSwitch(
-                value: false, 
-                onChanged: (value) {},
+                value: false,
+                onChanged: null,
               ),
             ),
           ],
