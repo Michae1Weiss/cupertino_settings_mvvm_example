@@ -22,9 +22,28 @@ class ScrollScreen extends StatelessWidget {
           children: [
             Expanded(
               child: CupertinoScrollbar(
+                /*
                 child: CupertinoListSection(
                   header: Text("Elements"),
                   children: elements,
+                ),
+                */
+                child: ListView.builder(
+                  itemCount: 120,
+                  itemBuilder: (BuildContext context, int index) {
+                    /*
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Item $index'),
+                      ),
+                    );
+                    */
+                    return CupertinoListTile(
+                      title: Text(index.toString()),
+                      leading: Text("test"),
+                    );
+                  },
                 ),
               ),
             ),
