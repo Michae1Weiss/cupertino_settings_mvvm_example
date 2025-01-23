@@ -15,7 +15,7 @@ class ScrollScreen extends StatelessWidget {
       return CupertinoListTile(
         title: Text("title ${index.toString()}"),
         subtitle: Text("subtitle"),
-        leading: Text("leading"),
+        leading: Text((index * 10).toString()),
         trailing: Text("trailing"),
         additionalInfo: Text("additional info"),
       );
