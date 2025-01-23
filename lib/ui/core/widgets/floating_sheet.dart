@@ -14,11 +14,12 @@ class FloatingModal extends StatelessWidget {
     return DisplayFeatureSubScreen(
       anchorPoint: Offset.infinite,
       child: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        minimum: const EdgeInsets.symmetric(horizontal: 147),
         child: Material(
           color: backgroundColor,
           clipBehavior: Clip.antiAlias,
-          borderRadius: BorderRadius.circular(12),
+          // See: https://github.com/jamesblasco/modal_bottom_sheet/blob/a87f82b4872042ca0ff2f5d5ab75c432532b94b5/sheet/lib/src/route/cupertino/sheet_route.dart#L20
+          borderRadius: BorderRadius.circular(10.0),
           child: child,
         ),
       ),
@@ -35,6 +36,8 @@ class FloatingSheetRoute<T> extends SheetRoute<T> {
               child: Builder(builder: builder),
             );
           },
+          // See: https://github.com/jamesblasco/modal_bottom_sheet/blob/a87f82b4872042ca0ff2f5d5ab75c432532b94b5/sheet/lib/src/route/cupertino/sheet_route.dart#L39
+          animationCurve: Curves.easeOutExpo,
           fit: SheetFit.loose,
         );
 }

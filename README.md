@@ -22,5 +22,6 @@ How to implement `pageSheet` or `formSheet`, iPad-like?
 Links:
 - [Show Modal in tablet #166](https://github.com/jamesblasco/modal_bottom_sheet/issues/166)
 - [Great on Phone, not so on Tablet #30](https://github.com/jamesblasco/modal_bottom_sheet/issues/30)
+- [[sheet] Show cupertino modal? #367](https://github.com/jamesblasco/modal_bottom_sheet/issues/367)
 - [floating_modal.dart](https://github.com/jamesblasco/modal_bottom_sheet/blob/main/modal_bottom_sheet/example/lib/modals/floating_modal.dart)
     - See `Float Model` in the [demo](https://jamesblasco.github.io/modal_bottom_sheet/#/)
