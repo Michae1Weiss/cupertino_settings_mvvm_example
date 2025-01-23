@@ -53,16 +53,29 @@ class HomeScreen extends StatelessWidget {
                             width: 16.0,
                           ),
                           CupertinoButton(
-                              padding: EdgeInsets.zero,
-                              minSize: 0,
-                              child: Icon(
-                                CupertinoIcons.square_list,
-                                size: 25,
-                              ),
-                              onPressed: () {
-                                // ...
-                                context.go('/scroll');
-                              }),
+                            padding: EdgeInsets.zero,
+                            minSize: 0,
+                            child: Icon(
+                              CupertinoIcons.square_list,
+                              size: 25,
+                            ),
+                            onPressed: () {
+                              // ...
+                              context.go('/scroll');
+                            },
+                          ),
+                          CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            minSize: 0,
+                            child: Icon(
+                              CupertinoIcons.calendar,
+                              size: 25,
+                            ),
+                            onPressed: () {
+                              // ...
+                              _showFloatingSheet(context);
+                            },
+                          ),
                         ],
                       ),
                     ),
