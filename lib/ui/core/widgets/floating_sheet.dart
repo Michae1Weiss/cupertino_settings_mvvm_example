@@ -14,7 +14,7 @@ class FloatingModal extends StatelessWidget {
     return DisplayFeatureSubScreen(
       anchorPoint: Offset.infinite,
       child: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 147),
+        minimum: const EdgeInsets.symmetric(horizontal: 147, vertical: 147),
         child: Material(
           color: backgroundColor,
           clipBehavior: Clip.antiAlias,
