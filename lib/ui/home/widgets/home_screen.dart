@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../core/widgets/floating_sheet.dart';
+import 'modal_fit.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.viewModel});
 
@@ -140,6 +143,14 @@ class HomeScreen extends StatelessWidget {
             child: Icon(CupertinoIcons.paperplane, size: 25),
           )
         ],
+      ),
+    );
+  }
+
+  void _showFloatingSheet(BuildContext context) {
+    Navigator.of(context).push(
+      FloatingSheetRoute<void>(
+        builder: (BuildContext context) => const ModalFit(),
       ),
     );
   }
