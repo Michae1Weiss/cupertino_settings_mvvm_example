@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../core/widgets/floating_sheet.dart';
+import 'cupertino_example_form.dart';
 import 'modal_fit.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -163,7 +164,7 @@ class HomeScreen extends StatelessWidget {
   void _showFloatingSheet(BuildContext context) {
     Navigator.of(context).push(
       FloatingSheetRoute<void>(
-        builder: (BuildContext context) => const ModalFit(),
+        builder: (BuildContext context) => const CupertinoExampleForm(),
       ),
     );
   }
