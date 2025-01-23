@@ -17,7 +17,8 @@ class SettingsScreen extends StatelessWidget {
         listenable: viewModel,
         builder: (context, _) {
           return SafeArea(
-            child: CupertinoFormSection(
+            child: CupertinoFormSection.insetGrouped(
+              header: Text("General"),
               children: [
                 CupertinoFormRow(
                   prefix: Text("Mock Mode"),
@@ -40,7 +41,6 @@ class SettingsScreen extends StatelessWidget {
                 CupertinoFormRow(
                   prefix: Text("Advanced Settings"),
                   child: CupertinoButton(
-                    minSize: 0,
                     padding: EdgeInsets.zero,
                     child: Icon(
                       CupertinoIcons.chevron_forward,
