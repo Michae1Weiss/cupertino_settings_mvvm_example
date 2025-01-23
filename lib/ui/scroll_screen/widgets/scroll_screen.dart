@@ -9,11 +9,12 @@ class ScrollScreen extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Placeholder(),
       ),
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: bottomAppBar(context),
+      child: Column(
+        children: [
+          Expanded(
+            child: CustomScrollView(),
           ),
+          bottomAppBar(context),
         ],
       ),
     );
