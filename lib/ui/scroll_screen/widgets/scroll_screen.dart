@@ -5,6 +5,13 @@ class ScrollScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> elements = List.generate(10, (index) {
+      return CupertinoFormRow(
+        child: Text(index.toString()),
+        prefix: Text("test"),
+      );
+    });
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Placeholder(),
@@ -12,7 +19,9 @@ class ScrollScreen extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: CustomScrollView(),
+            child: ListView(
+              children: elements,
+            ),
           ),
           bottomAppBar(context),
         ],
