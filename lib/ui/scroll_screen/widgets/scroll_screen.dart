@@ -40,8 +40,11 @@ class ScrollScreen extends StatelessWidget {
                     );
                     */
                     return CupertinoListTile(
-                      title: Text(index.toString()),
-                      leading: Text("test"),
+                      title: Text("title ${index.toString()}"),
+                      subtitle: Text("subtitle"),
+                      leading: Text("leading"),
+                      trailing: Text("trailing"),
+                      additionalInfo: Text("additional info"),
                     );
                   },
                 ),
