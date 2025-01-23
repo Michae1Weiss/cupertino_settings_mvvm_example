@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sheet/route.dart';
 
+import '../ui/core/widgets/floating_sheet.dart';
 import '../ui/new_position/widgets/new_position_screen.dart';
 import '../ui/settings/widgets/advanced_settings_screen.dart';
 
@@ -90,13 +91,23 @@ GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-            path: 'send',
-            pageBuilder: (context, state) {
-              return CupertinoSheetPage(
-                key: state.pageKey,
-                child: SendScreen(),
-              );
-            }),
+          path: 'send',
+          pageBuilder: (context, state) {
+            return CupertinoSheetPage(
+              key: state.pageKey,
+              child: SendScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: 'form-example',
+          pageBuilder: (context, state) {
+            return CupertinoFormSheetPage(
+              key: state.pageKey,
+              child: SendScreen(),
+            );
+          },
+        ),
       ],
     ),
   ],

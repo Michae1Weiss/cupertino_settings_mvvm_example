@@ -40,16 +40,17 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           CupertinoButton(
-                              padding: EdgeInsets.zero,
-                              minSize: 0,
-                              child: Icon(
-                                CupertinoIcons.plus,
-                                size: 25,
-                              ),
-                              onPressed: () {
-                                // ...
-                                context.go('/create');
-                              }),
+                            padding: EdgeInsets.zero,
+                            minSize: 0,
+                            child: Icon(
+                              CupertinoIcons.plus,
+                              size: 25,
+                            ),
+                            onPressed: () {
+                              // ...
+                              context.go('/create');
+                            },
+                          ),
                           SizedBox(
                             width: 16.0,
                           ),
@@ -65,6 +66,9 @@ class HomeScreen extends StatelessWidget {
                               context.go('/scroll');
                             },
                           ),
+                          SizedBox(
+                            width: 16.0,
+                          ),
                           CupertinoButton(
                             padding: EdgeInsets.zero,
                             minSize: 0,
@@ -75,6 +79,20 @@ class HomeScreen extends StatelessWidget {
                             onPressed: () {
                               // ...
                               _showFloatingSheet(context);
+                            },
+                          ),
+                          SizedBox(
+                            width: 16.0,
+                          ),
+                          CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            minSize: 0,
+                            child: Icon(
+                              CupertinoIcons.folder_badge_minus,
+                              size: 25,
+                            ),
+                            onPressed: () {
+                              context.go('/form-example');
                             },
                           ),
                         ],
@@ -163,7 +181,7 @@ class HomeScreen extends StatelessWidget {
 
   void _showFloatingSheet(BuildContext context) {
     Navigator.of(context).push(
-      FloatingSheetRoute<void>(
+      CupertinoFloatingSheetRoute<void>(
         builder: (BuildContext context) => const CupertinoExampleForm(),
       ),
     );

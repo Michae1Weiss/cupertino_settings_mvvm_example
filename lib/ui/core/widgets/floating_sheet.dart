@@ -27,9 +27,14 @@ class FloatingModal extends StatelessWidget {
   }
 }
 
-class FloatingSheetRoute<T> extends SheetRoute<T> {
-  FloatingSheetRoute({
+class CupertinoFloatingSheetRoute<T> extends SheetRoute<T> {
+  CupertinoFloatingSheetRoute({
     required WidgetBuilder builder,
+    super.stops,
+    double initialStop = 1,
+    super.settings,
+    Color? backgroundColor,
+    super.maintainState = true,
   }) : super(
           builder: (BuildContext context) {
             return FloatingModal(
@@ -39,16 +44,34 @@ class FloatingSheetRoute<T> extends SheetRoute<T> {
           // See: https://github.com/jamesblasco/modal_bottom_sheet/blob/a87f82b4872042ca0ff2f5d5ab75c432532b94b5/sheet/lib/src/route/cupertino/sheet_route.dart#L39
           animationCurve: Curves.easeOutExpo,
           fit: SheetFit.loose,
-          decorationBuilder: (context, child) => Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5)
-            ]),
-            width: double.infinity,
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true, //Remove top Safe Area
-              child: child,
-            ),
-          ),
+        );
+}
+
+class CupertinoFormSheetPage<T> extends Page<T> {
+  /// Creates a material page.
+  const CupertinoFormSheetPage({
+    required this.child,
+    super.key,
+  });
+
+  /// The content to be shown in the [Route] created by this page.
+  final Widget child;
+
+  @override
+  Route<T> createRoute(BuildContext context) {
+    return _PageBasedCupertinoSheetRoute<T>(page: this);
+  }
+}
+
+class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
+  _PageBasedCupertinoSheetRoute({
+    required CupertinoFormSheetPage<T> page,
+  }) : super(
+          settings: page,
+          builder: (BuildContext context) {
+            return (ModalRoute.of(context)!.settings
+                    as CupertinoFormSheetPage<T>)
+                .child;
+          },
         );
 }
