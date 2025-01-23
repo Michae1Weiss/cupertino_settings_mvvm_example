@@ -37,7 +37,8 @@ GoRouter router = GoRouter(
         ShellRoute(
           navigatorKey: nestedNavigationKey,
           parentNavigatorKey: rootNavigatorKey,
-          pageBuilder: (_, __, child) => CupertinoSheetPage<void>(child: child),
+          pageBuilder: (context, state, child) =>
+              cupertinoSheetPageBuilder(context, state, child),
           routes: [
             GoRoute(
               path: 'settings',
@@ -119,12 +120,12 @@ Page cupertinoSheetPageBuilder(
   if (screenWidth < 650) {
     return CupertinoSheetPage(
       key: state.pageKey,
-      child: SendScreen(),
+      child: child,
     );
   } else {
     return CupertinoFormSheetPage(
       key: state.pageKey,
-      child: SendScreen(),
+      child: child,
     );
   }
 }
