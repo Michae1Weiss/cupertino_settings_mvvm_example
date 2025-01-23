@@ -11,17 +11,40 @@ class FloatingModal extends StatelessWidget {
   Widget build(BuildContext context) {
     // DisplayFeatureSubScreen allows to display the modal in just
     // one sub-screen of a foldable device.
-    return DisplayFeatureSubScreen(
-      anchorPoint: Offset.infinite,
-      child: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 147, vertical: 147),
-        child: Material(
-          color: backgroundColor,
-          clipBehavior: Clip.antiAlias,
-          // See: https://github.com/jamesblasco/modal_bottom_sheet/blob/a87f82b4872042ca0ff2f5d5ab75c432532b94b5/sheet/lib/src/route/cupertino/sheet_route.dart#L20
-          borderRadius: BorderRadius.circular(10.0),
-          child: child,
-        ),
+    return SafeArea(
+      minimum: const EdgeInsets.symmetric(vertical: 147),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          // Check if the screen width is less than 650
+          if (constraints.maxWidth < 650) {
+            // Return an alternative widget for narrow screens
+            return Center(
+              child: Text(
+                'Screen is too narrow!',
+                style: TextStyle(fontSize: 16, color: Colors.black),
+              ),
+            );
+          }
+
+          // Enforce the width constraint of 650 for larger screens
+          return Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 650,
+              ),
+              child: Material(
+                color: backgroundColor,
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(10.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0), // Vertical padding is customizable
+                  child: child,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
