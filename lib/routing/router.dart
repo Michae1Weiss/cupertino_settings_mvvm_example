@@ -27,10 +27,11 @@ GoRouter router = GoRouter(
         HomeViewModel viewModel =
             HomeViewModel(fruitRepository: context.watch());
         return CupertinoExtendedPage(
-            key: state.pageKey,
-            child: HomeScreen(
-              viewModel: viewModel,
-            ));
+          key: state.pageKey,
+          child: HomeScreen(
+            viewModel: viewModel,
+          ),
+        );
       },
       routes: [
         ShellRoute(
@@ -64,23 +65,29 @@ GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-            path: 'create', // TODO: rename
-            pageBuilder: (context, state) {
-              return CupertinoExtendedPage(
-                key: state.pageKey,
-                child: CreateScreen(),
-              );
-            },
-            routes: [
-              GoRoute(
-                  path: 'new',
-                  pageBuilder: (context, state) {
+          path: 'create', // TODO: rename
+          pageBuilder: (context, state) {
+            return CupertinoExtendedPage(
+              key: state.pageKey,
+              child: CreateScreen(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'new',
+              pageBuilder: (context, state) => cupertinoSheetPageBuilder(
+                  context, state, NewPositionScreen()),
+              /*
+                  {
                     return CupertinoSheetPage(
                       key: state.pageKey,
                       child: NewPositionScreen(),
                     );
-                  }),
-            ]),
+                  },
+                  */
+            ),
+          ],
+        ),
         GoRoute(
           path: 'scroll', // TODO: rename
           pageBuilder: (context, state) {
@@ -92,32 +99,32 @@ GoRouter router = GoRouter(
         ),
         GoRoute(
           path: 'send',
-          pageBuilder: (context, state) {
-            return CupertinoSheetPage(
-              key: state.pageKey,
-              child: SendScreen(),
-            );
-          },
+          pageBuilder: (context, state) =>
+              cupertinoSheetPageBuilder(context, state, SendScreen()),
         ),
         GoRoute(
           path: 'form-example',
-          pageBuilder: (context, state) {
-            // Redirect based on screen size
-            final screenWidth = MediaQuery.of(context).size.width;
-            if (screenWidth < 650) {
-              return CupertinoSheetPage(
-                key: state.pageKey,
-                child: SendScreen(),
-              );
-            } else {
-              return CupertinoFormSheetPage(
-                key: state.pageKey,
-                child: SendScreen(),
-              );
-            }
-          },
+          pageBuilder: (context, state) =>
+              cupertinoSheetPageBuilder(context, state, SendScreen()),
         ),
       ],
     ),
   ],
 );
+
+Page cupertinoSheetPageBuilder(
+    BuildContext context, GoRouterState state, Widget child) {
+  // Redirect based on screen size
+  final screenWidth = MediaQuery.of(context).size.width;
+  if (screenWidth < 650) {
+    return CupertinoSheetPage(
+      key: state.pageKey,
+      child: SendScreen(),
+    );
+  } else {
+    return CupertinoFormSheetPage(
+      key: state.pageKey,
+      child: SendScreen(),
+    );
+  }
+}

@@ -12,7 +12,7 @@ class FloatingModal extends StatelessWidget {
     // DisplayFeatureSubScreen allows to display the modal in just
     // one sub-screen of a foldable device.
     return SafeArea(
-      minimum: const EdgeInsets.symmetric(vertical: 147),
+      minimum: const EdgeInsets.symmetric(vertical: 60),
       child: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(
