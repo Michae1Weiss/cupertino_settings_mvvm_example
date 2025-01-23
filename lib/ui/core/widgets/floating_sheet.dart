@@ -101,7 +101,7 @@ class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
           },
         );
 
-  CupertinoSheetPage<T> get _page => settings as CupertinoSheetPage<T>;
+  CupertinoFormSheetPage<T> get _page => settings as CupertinoFormSheetPage<T>;
 
   @override
   bool get maintainState => _page.maintainState;
