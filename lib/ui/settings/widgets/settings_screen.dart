@@ -40,8 +40,12 @@ class SettingsScreen extends StatelessWidget {
                 CupertinoFormRow(
                   prefix: Text("Advanced Settings"),
                   child: CupertinoButton(
+                    minSize: 0,
                     padding: EdgeInsets.zero,
-                    child: Icon(CupertinoIcons.chevron_forward),
+                    child: Icon(
+                      CupertinoIcons.chevron_forward,
+                      size: 25.0,
+                    ),
                     onPressed: () {
                       context.go('/settings/advanced');
                     },
