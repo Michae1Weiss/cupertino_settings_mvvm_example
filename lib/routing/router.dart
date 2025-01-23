@@ -102,10 +102,19 @@ GoRouter router = GoRouter(
         GoRoute(
           path: 'form-example',
           pageBuilder: (context, state) {
-            return CupertinoFormSheetPage(
-              key: state.pageKey,
-              child: SendScreen(),
-            );
+            // Redirect based on screen size
+            final screenWidth = MediaQuery.of(context).size.width;
+            if (screenWidth < 650) {
+              return CupertinoSheetPage(
+                key: state.pageKey,
+                child: SendScreen(),
+              );
+            } else {
+              return CupertinoFormSheetPage(
+                key: state.pageKey,
+                child: SendScreen(),
+              );
+            }
           },
         ),
       ],
