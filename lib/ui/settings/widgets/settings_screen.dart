@@ -26,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
                     onChanged: (value) async {
                       await viewModel.toggleUseMockApiFlag();
                     },
-                  )
+                  ),
                 ),
                 CupertinoFormRow(
                   prefix: Text("Use Dark Theme"),
@@ -35,22 +35,22 @@ class SettingsScreen extends StatelessWidget {
                     onChanged: (value) async {
                       await viewModel.toggleUseDarkTheme();
                     },
-                  )
+                  ),
                 ),
                 CupertinoFormRow(
                   prefix: Text("Advanced Settings"),
                   child: CupertinoButton(
                     padding: EdgeInsets.zero,
-                    child: Icon(CupertinoIcons.gobackward),
+                    child: Icon(CupertinoIcons.chevron_forward),
                     onPressed: () {
                       context.go('/settings/advanced');
                     },
-                  )
+                  ),
                 ),
               ],
             ),
           );
-        }
+        },
       ),
     );
   }
