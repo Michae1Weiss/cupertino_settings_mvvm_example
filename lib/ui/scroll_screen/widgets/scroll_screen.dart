@@ -11,7 +11,7 @@ class ScrollScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> elements = List.generate(20, (index) {
+    List<Widget> elements = List.generate(2, (index) {
       return CupertinoListTile(
         title: Text("title ${index.toString()}"),
         subtitle: Text("subtitle"),
@@ -30,7 +30,7 @@ class ScrollScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: CupertinoScrollbar(
+              // child: CupertinoScrollbar(
                 child: ListView(
                   children: [
                     CupertinoListSection.insetGrouped(
@@ -41,7 +41,7 @@ class ScrollScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              // ),
             ),
             bottomAppBar(context),
           ],
@@ -50,55 +50,55 @@ class ScrollScreen extends StatelessWidget {
     );
   }
 
-  Widget buildInsetGroupedTile(
-      {required BuildContext context, required int index}) {
-    const EdgeInsets tileMargin =
-        EdgeInsets.symmetric(horizontal: 16, vertical: 4);
+  // Widget buildInsetGroupedTile(
+  //     {required BuildContext context, required int index}) {
+  //   const EdgeInsets tileMargin =
+  //       EdgeInsets.symmetric(horizontal: 16, vertical: 4);
 
-    final BorderRadius borderRadius = BorderRadius.circular(10);
-    final Color tileBackgroundColor =
-        CupertinoColors.secondarySystemGroupedBackground;
-    final Color separatorColor = CupertinoColors.separator;
+  //   final BorderRadius borderRadius = BorderRadius.circular(10);
+  //   final Color tileBackgroundColor =
+  //       CupertinoColors.secondarySystemGroupedBackground;
+  //   final Color separatorColor = CupertinoColors.separator;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (index == 0) // Add a header for the first section
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                "Section Header",
-                style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-              ),
-            ),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: tileBackgroundColor,
-              borderRadius: borderRadius,
-            ),
-            child: CupertinoListTile(
-              title: Text("Item $index"),
-              subtitle: const Text("Subtitle"),
-              leading: const Icon(CupertinoIcons.circle),
-              trailing: const Icon(CupertinoIcons.chevron_forward),
-            ),
-          ),
-          // Add a divider unless it's the last item
-          if (index < 19) // Replace 19 with the last item's index
-            Container(
-              height: 1,
-              color: separatorColor,
-              margin: tileMargin,
-            ),
-        ],
-      ),
-    );
-  }
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.stretch,
+  //       children: [
+  //         if (index == 0) // Add a header for the first section
+  //           Padding(
+  //             padding: const EdgeInsets.only(bottom: 8),
+  //             child: Text(
+  //               "Section Header",
+  //               style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 16,
+  //                   ),
+  //             ),
+  //           ),
+  //         DecoratedBox(
+  //           decoration: BoxDecoration(
+  //             color: tileBackgroundColor,
+  //             borderRadius: borderRadius,
+  //           ),
+  //           child: CupertinoListTile(
+  //             title: Text("Item $index"),
+  //             subtitle: const Text("Subtitle"),
+  //             leading: const Icon(CupertinoIcons.circle),
+  //             trailing: const Icon(CupertinoIcons.chevron_forward),
+  //           ),
+  //         ),
+  //         // Add a divider unless it's the last item
+  //         if (index < 19) // Replace 19 with the last item's index
+  //           Container(
+  //             height: 1,
+  //             color: separatorColor,
+  //             margin: tileMargin,
+  //           ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget bottomAppBar(BuildContext context) {
     return Container(
