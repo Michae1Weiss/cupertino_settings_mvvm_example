@@ -78,14 +78,6 @@ GoRouter router = GoRouter(
               path: 'new',
               pageBuilder: (context, state) => cupertinoSheetPageBuilder(
                   context, state, NewPositionScreen()),
-              /*
-                  {
-                    return CupertinoSheetPage(
-                      key: state.pageKey,
-                      child: NewPositionScreen(),
-                    );
-                  },
-                  */
             ),
           ],
         ),
