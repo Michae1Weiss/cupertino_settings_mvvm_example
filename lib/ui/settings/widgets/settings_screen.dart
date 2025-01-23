@@ -51,6 +51,12 @@ class SettingsScreen extends StatelessWidget {
                     },
                   ),
                 ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  color: CupertinoTheme.brightnessOf(context) == Brightness.dark
+                      ? CupertinoColors.inactiveGray
+                      : CupertinoColors.black,
+                )
               ],
             ),
           );

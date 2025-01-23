@@ -95,10 +95,21 @@ class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
   }) : super(
           settings: page,
           builder: (BuildContext context) {
+            return _CupertinoSheetDecorationBuilder(
+              child: (ModalRoute.of(context)!.settings
+                      as CupertinoFormSheetPage<T>)
+                  .child,
+              backgroundColor: backgroundColor,
+              topRadius: Radius.circular(10.0),
+            );
+          },
+          /*
+          (BuildContext context) {
             return (ModalRoute.of(context)!.settings
                     as CupertinoFormSheetPage<T>)
                 .child;
           },
+          */
         );
 
   CupertinoFormSheetPage<T> get _page => settings as CupertinoFormSheetPage<T>;
@@ -108,4 +119,50 @@ class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
 
   @override
   String get debugLabel => '${super.debugLabel}(${_page.name})';
+}
+
+/// Wraps the child into a cupertino modal sheet appearance. This is used to
+/// create a [SheetRoute].
+///
+/// Clip the child widget to rectangle with top rounded corners and adds
+/// top padding and top safe area.
+class _CupertinoSheetDecorationBuilder extends StatelessWidget {
+  const _CupertinoSheetDecorationBuilder({
+    required this.child,
+    required this.topRadius,
+    this.backgroundColor,
+  });
+
+  /// The child contained by the modal sheet
+  final Widget child;
+
+  /// The color to paint behind the child
+  final Color? backgroundColor;
+
+  /// The top corners of this modal sheet are rounded by this Radius
+  final Radius topRadius;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoUserInterfaceLevel(
+      data: CupertinoUserInterfaceLevelData.elevated,
+      child: Builder(
+        builder: (BuildContext context) {
+          return Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: topRadius),
+              color: backgroundColor ??
+                  CupertinoColors.systemBackground.resolveFrom(context),
+            ),
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: child,
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
