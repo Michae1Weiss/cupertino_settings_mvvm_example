@@ -11,43 +11,65 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: viewModel,
-      builder: (context, _) {
-        return CupertinoPageScaffold(
-          child: Stack(
-            children: [
-              CustomScrollView(
-                slivers: [
-                  CupertinoSliverNavigationBar(
-                    //leading: Icon(CupertinoIcons.settings),
-                    leading: CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      minSize: 0,
-                      child: Icon(CupertinoIcons.settings, size: 25,),
-                      onPressed: () {
-                        context.go('/settings');
-                      },
+        listenable: viewModel,
+        builder: (context, _) {
+          return CupertinoPageScaffold(
+            child: Stack(
+              children: [
+                CustomScrollView(
+                  slivers: [
+                    CupertinoSliverNavigationBar(
+                      //leading: Icon(CupertinoIcons.settings),
+                      leading: CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        minSize: 0,
+                        child: Icon(
+                          CupertinoIcons.settings,
+                          size: 25,
+                        ),
+                        onPressed: () {
+                          context.go('/settings');
+                        },
+                      ),
+                      largeTitle: Text("Fruit Deluxe"),
+                      trailing: Row(
+                        children: [
+                          CupertinoButton(
+                              padding: EdgeInsets.zero,
+                              minSize: 0,
+                              child: Icon(
+                                CupertinoIcons.plus,
+                                size: 25,
+                              ),
+                              onPressed: () {
+                                // ...
+                                context.go('/create');
+                              }),
+                          SizedBox(
+                            width: 16.0,
+                          ),
+                          CupertinoButton(
+                              padding: EdgeInsets.zero,
+                              minSize: 0,
+                              child: Icon(
+                                CupertinoIcons.square_list,
+                                size: 25,
+                              ),
+                              onPressed: () {
+                                // ...
+                                context.go('/scroll');
+                              }),
+                        ],
+                      ),
                     ),
-                    largeTitle: Text("Fruit Deluxe"),
-                    trailing: CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      minSize: 0,
-                      child: Icon(CupertinoIcons.plus, size: 25,),
-                      onPressed: () {
-                        // ...
-                        context.go('/create');
-                      }
-                    ),
-                  ),
-                  // This widget fills the remaining space in the viewport.
-                  // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
-                  SliverFillRemaining(
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Center(
-                            child: Builder(
-                              builder: (context) {
+                    // This widget fills the remaining space in the viewport.
+                    // Drag the scrollable area to collapse the CupertinoSliverNavigationBar.
+                    SliverFillRemaining(
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Center(
+                              child: Builder(builder: (context) {
                                 if (viewModel.fruit != null) {
                                   String fruitName = viewModel.fruit!.name;
                                   return Text("Hey, $fruitName!");
@@ -56,29 +78,28 @@ class HomeScreen extends StatelessWidget {
                                   String error = viewModel.error!;
                                   return Text("Error: $error");
                                 }
-                                return Text("Huh? Poor writen app! Contact support!");
-                              }
+                                return Text(
+                                    "Huh? Poor writen app! Contact support!");
+                              }),
                             ),
                           ),
-                        ),
-                        
-                        // bottomAppBar(context),
-                      ],
+
+                          // bottomAppBar(context),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: bottomAppBar(context),
-              ),
-            ],
-          ),
-        );
-      }
-    );
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: bottomAppBar(context),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   Widget bottomAppBar(BuildContext context) {
@@ -115,10 +136,7 @@ class HomeScreen extends StatelessWidget {
               context.go('/send');
             },
             minSize: 0,
-            child: Icon(
-              CupertinoIcons.paperplane,
-              size: 25
-            ),
+            child: Icon(CupertinoIcons.paperplane, size: 25),
           )
         ],
       ),
