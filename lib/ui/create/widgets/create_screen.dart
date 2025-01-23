@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
 class CreateScreen extends StatelessWidget {
 
@@ -11,7 +12,7 @@ class CreateScreen extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Placeholder(),
-        trailing: CupertinoAddButton(),
+        trailing: cupertinoPullDownButton(context),
         //trailing: CupertinoButton(
         //  padding: EdgeInsets.zero, // Add appropriate padding
         //  child: Icon(CupertinoIcons.gobackward),
@@ -77,16 +78,12 @@ class CreateScreen extends StatelessWidget {
     );
   }
 
-}
-
-class CupertinoAddButton extends StatelessWidget {
-  const CupertinoAddButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget cupertinoAddButton(BuildContext context) {
     return CupertinoButton(
       padding: EdgeInsets.zero,
-      onPressed: () {},
+      onPressed: () {
+        
+      },
       minSize: 0,
       child: Icon(
         CupertinoIcons.add,
@@ -95,4 +92,57 @@ class CupertinoAddButton extends StatelessWidget {
       ),
     );
   }
+
+  Widget cupertinoPullDownButton(BuildContext context) {
+    return PullDownButton(
+      itemBuilder: (context) => [
+        PullDownMenuItem(
+          onTap: () {},
+          title: 'Pin',
+          icon: CupertinoIcons.pin,
+        ),
+        PullDownMenuItem(
+          title: 'Forward',
+          subtitle: 'Share in different channel',
+          onTap: () {},
+          icon: CupertinoIcons.arrowshape_turn_up_right,
+        ),
+        PullDownMenuItem(
+          onTap: () {},
+          title: 'Delete',
+          isDestructive: true,
+          icon: CupertinoIcons.delete,
+        ),
+      ],
+      buttonBuilder: (context, showMenu) => CupertinoButton(
+        onPressed: showMenu,
+        padding: EdgeInsets.zero,
+        minSize: 0,
+        child: const Icon(
+          CupertinoIcons.ellipsis_circle,
+          size: 25,
+        ),
+      ),
+    );
+  }
 }
+
+// class CupertinoAddButton extends StatelessWidget {
+//   const CupertinoAddButton({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoButton(
+//       padding: EdgeInsets.zero,
+//       onPressed: () {
+
+//       },
+//       minSize: 0,
+//       child: Icon(
+//         CupertinoIcons.add,
+//         color: CupertinoTheme.of(context).primaryColor,
+//         size: 25,
+//       ),
+//     );
+//   }
+// }
