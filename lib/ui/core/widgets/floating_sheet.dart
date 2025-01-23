@@ -13,38 +13,18 @@ class FloatingModal extends StatelessWidget {
     // one sub-screen of a foldable device.
     return SafeArea(
       minimum: const EdgeInsets.symmetric(vertical: 147),
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          // Check if the screen width is less than 650
-          if (constraints.maxWidth < 650) {
-            // Return an alternative widget for narrow screens
-            return Center(
-              child: Text(
-                'Screen is too narrow!',
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              ),
-            );
-          }
-
-          // Enforce the width constraint of 650 for larger screens
-          return Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: 650,
-              ),
-              child: Material(
-                color: backgroundColor,
-                clipBehavior: Clip.antiAlias,
-                borderRadius: BorderRadius.circular(10.0),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 20.0), // Vertical padding is customizable
-                  child: child,
-                ),
-              ),
-            ),
-          );
-        },
+      child: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 650,
+          ),
+          child: Material(
+            color: backgroundColor,
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.circular(10.0),
+            child: child,
+          ),
+        ),
       ),
     );
   }
