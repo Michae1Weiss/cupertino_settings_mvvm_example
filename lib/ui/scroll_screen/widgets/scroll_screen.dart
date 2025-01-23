@@ -6,9 +6,9 @@ class ScrollScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> elements = List.generate(10, (index) {
-      return CupertinoFormRow(
-        child: Text(index.toString()),
-        prefix: Text("test"),
+      return CupertinoListTile(
+        title: Text(index.toString()),
+        leading: Text("test"),
       );
     });
 
@@ -19,7 +19,7 @@ class ScrollScreen extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: ListView(
+            child: CupertinoListSection(
               children: elements,
             ),
           ),
