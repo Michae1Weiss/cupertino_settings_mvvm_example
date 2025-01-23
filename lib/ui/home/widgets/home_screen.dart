@@ -33,6 +33,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       largeTitle: Text("Fruit Deluxe"),
                       trailing: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           CupertinoButton(
                               padding: EdgeInsets.zero,
