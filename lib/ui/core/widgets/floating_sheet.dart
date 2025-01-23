@@ -39,5 +39,16 @@ class FloatingSheetRoute<T> extends SheetRoute<T> {
           // See: https://github.com/jamesblasco/modal_bottom_sheet/blob/a87f82b4872042ca0ff2f5d5ab75c432532b94b5/sheet/lib/src/route/cupertino/sheet_route.dart#L39
           animationCurve: Curves.easeOutExpo,
           fit: SheetFit.loose,
+          decorationBuilder: (context, child) => Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(blurRadius: 10, color: Colors.black12, spreadRadius: 5)
+            ]),
+            width: double.infinity,
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true, //Remove top Safe Area
+              child: child,
+            ),
+          ),
         );
 }
