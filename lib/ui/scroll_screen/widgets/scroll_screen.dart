@@ -24,7 +24,7 @@ class ScrollScreen extends StatelessWidget {
     return CupertinoPageScaffold(
       // Ref: https://stackoverflow.com/questions/52472220/child-widget-of-cupertinopagescaffold-is-behind-cupertinonavigationbar
       navigationBar: CupertinoNavigationBar(
-        middle: Placeholder(),
+        middle: Text("Scrollbar Test"),
       ),
       child: SafeArea(
         child: Column(
@@ -35,7 +35,10 @@ class ScrollScreen extends StatelessWidget {
                   children: [
                     CupertinoListSection.insetGrouped(
                       children: elements,
-                    )
+                    ),
+                    CupertinoListSection.insetGrouped(
+                      children: elements,
+                    ),
                   ],
                 ),
               ),
