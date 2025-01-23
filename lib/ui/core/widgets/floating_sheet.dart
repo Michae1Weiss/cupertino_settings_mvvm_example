@@ -48,18 +48,6 @@ class CupertinoFloatingSheetRoute<T> extends SheetRoute<T> {
           // See: https://github.com/jamesblasco/modal_bottom_sheet/blob/a87f82b4872042ca0ff2f5d5ab75c432532b94b5/sheet/lib/src/route/cupertino/sheet_route.dart#L39
           animationCurve: Curves.easeOutExpo,
           fit: SheetFit.loose,
-          /*
-          decorationBuilder: (context, child) {
-            return Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                color: backgroundColor ??
-                    CupertinoColors.systemBackground.resolveFrom(context),
-              ),
-              child: child,
-            );
-          },
-          */
         );
 }
 
@@ -96,20 +84,13 @@ class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
           settings: page,
           builder: (BuildContext context) {
             return _CupertinoSheetDecorationBuilder(
+              backgroundColor: backgroundColor,
+              topRadius: Radius.circular(10.0),
               child: (ModalRoute.of(context)!.settings
                       as CupertinoFormSheetPage<T>)
                   .child,
-              backgroundColor: backgroundColor,
-              topRadius: Radius.circular(10.0),
             );
           },
-          /*
-          (BuildContext context) {
-            return (ModalRoute.of(context)!.settings
-                    as CupertinoFormSheetPage<T>)
-                .child;
-          },
-          */
         );
 
   CupertinoFormSheetPage<T> get _page => settings as CupertinoFormSheetPage<T>;
@@ -121,11 +102,6 @@ class _PageBasedCupertinoSheetRoute<T> extends CupertinoFloatingSheetRoute<T> {
   String get debugLabel => '${super.debugLabel}(${_page.name})';
 }
 
-/// Wraps the child into a cupertino modal sheet appearance. This is used to
-/// create a [SheetRoute].
-///
-/// Clip the child widget to rectangle with top rounded corners and adds
-/// top padding and top safe area.
 class _CupertinoSheetDecorationBuilder extends StatelessWidget {
   const _CupertinoSheetDecorationBuilder({
     required this.child,
