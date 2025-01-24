@@ -21,6 +21,7 @@ class SendScreen extends StatelessWidget {
           children: [
             CupertinoFormRow(
               child: CupertinoTextField(
+                autofillHints: [AutofillHints.username],
                 padding: EdgeInsets.only(left: 13, top: 8, bottom: 8, right: 8),
                 prefix: Text("Username"),
                 placeholder: "Required",
@@ -30,6 +31,7 @@ class SendScreen extends StatelessWidget {
             ),
             CupertinoFormRow(
               child: CupertinoTextField(
+                autofillHints: [AutofillHints.password],
                 padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 8),
                 prefix: Text("Password"),
                 placeholder: "Required",
