@@ -16,30 +16,36 @@ class SendScreen extends StatelessWidget {
         middle: Text("Send"),
       ),
       child: SafeArea(
-        child: CupertinoFormSection.insetGrouped(
-          margin: EdgeInsets.all(16.0),
-          children: [
-            CupertinoFormRow(
-              child: CupertinoTextField(
-                autofillHints: [AutofillHints.username],
-                padding: EdgeInsets.only(left: 13, top: 8, bottom: 8, right: 8),
-                prefix: Text("Username"),
-                placeholder: "Required",
-                keyboardType: TextInputType.name,
-                decoration: BoxDecoration(),
-              ),
+        child: Form(
+          child: AutofillGroup(
+            child: CupertinoFormSection.insetGrouped(
+              margin: EdgeInsets.all(16.0),
+              children: [
+                CupertinoFormRow(
+                  child: CupertinoTextField(
+                    autofillHints: [AutofillHints.username],
+                    padding:
+                        EdgeInsets.only(left: 13, top: 8, bottom: 8, right: 8),
+                    prefix: Text("Username"),
+                    placeholder: "Required",
+                    keyboardType: TextInputType.name,
+                    decoration: BoxDecoration(),
+                  ),
+                ),
+                CupertinoFormRow(
+                  child: CupertinoTextField(
+                    autofillHints: [AutofillHints.password],
+                    padding:
+                        EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 8),
+                    prefix: Text("Password"),
+                    placeholder: "Required",
+                    obscureText: true,
+                    decoration: BoxDecoration(),
+                  ),
+                ),
+              ],
             ),
-            CupertinoFormRow(
-              child: CupertinoTextField(
-                autofillHints: [AutofillHints.password],
-                padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 8),
-                prefix: Text("Password"),
-                placeholder: "Required",
-                obscureText: true,
-                decoration: BoxDecoration(),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
