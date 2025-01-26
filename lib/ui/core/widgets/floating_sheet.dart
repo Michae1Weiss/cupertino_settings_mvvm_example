@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:sheet/route.dart';
 import 'package:sheet/sheet.dart';
 
@@ -16,14 +15,18 @@ class FloatingModal extends StatelessWidget {
       minimum: const EdgeInsets.symmetric(vertical: 60),
       child: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             maxWidth: 650,
           ),
-          child: Material(
-            color: backgroundColor,
-            clipBehavior: Clip.antiAlias,
-            borderRadius: BorderRadius.circular(10.0),
-            child: child,
+          child: CupertinoPopupSurface(
+            isSurfacePainted: true,
+            child: Container(
+              decoration: BoxDecoration(
+                color: backgroundColor ?? CupertinoColors.systemBackground,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: child,
+            ),
           ),
         ),
       ),
