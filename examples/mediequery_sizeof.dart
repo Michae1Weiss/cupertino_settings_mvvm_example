@@ -14,6 +14,7 @@ class Home extends StatefulWidget{
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.sizeOf(context);
     widget.couter += 1;
     return Text('Hello World! Counter value: ${widget.couter}');
   }
