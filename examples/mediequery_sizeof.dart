@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 void main() {
-  return runApp(CupertinoApp(home: Home(),));
+  return runApp(CupertinoApp(
+    home: Home(),
+  ));
 }
 
-class Home extends StatefulWidget{
+class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 
@@ -16,6 +18,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     widget.couter += 1;
-    return Text('Hello World! Counter value: ${widget.couter}');
+    return CupertinoPageScaffold(
+        child: Center(
+      child: Column(),
+    ));
   }
 }
