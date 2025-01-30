@@ -6,12 +6,21 @@ import 'cupertino_form_sheet.dart';
 
 bool isWideScreen(BuildContext context) {
   final double width = MediaQuery.sizeOf(context).width;
+  print("Hey, rebuild here!");
   return width > 750; // Adjust breakpoint as needed
 }
 
 GoRouter router = GoRouter(
   initialLocation: '/',
+  redirect: (context, state) {
+    if (isWideScreen(context)) {
+      return '/big/';
+    } else {
+      return '/';
+    }
+  },
   routes: [
+    // small screen
     GoRoute(
       path: '/',
       pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
@@ -19,15 +28,44 @@ GoRouter router = GoRouter(
         GoRoute(
           path: 'detail',
           pageBuilder: (context, __) {
-            return isWideScreen(context)
-                ? CupertinoFormSheetPage(child: Detail()) // Wide screen: Form Sheet
-                : CupertinoSheetPage(child: Detail()); // Small screen: Bottom Sheet
+            return CupertinoSheetPage(child: Detail()); // Small screen: Bottom Sheet
+          },
+        ),
+      ],
+    ),
+    // big screen
+    GoRoute(
+      path: '/big/',
+      pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
+      routes: [
+        GoRoute(
+          path: 'detail',
+          pageBuilder: (context, __) {
+            return CupertinoFormSheetPage(child: Detail());
           },
         ),
       ],
     ),
   ],
 );
+
+// GoRouter routerWide = GoRouter(
+//   initialLocation: '/',
+//   routes: [
+//     GoRoute(
+//       path: '/',
+//       pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
+//       routes: [
+//         GoRoute(
+//           path: 'detail',
+//           pageBuilder: (context, __) {
+//             return CupertinoFormSheetPage(child: Detail());
+//           },
+//         ),
+//       ],
+//     ),
+//   ],
+// );
 
 void main() {
   runApp(CupertinoApp.router(
@@ -71,6 +109,9 @@ class Detail extends StatelessWidget {
           child: Column(
             children: [
               Text('Detail'),
+              CupertinoTextField(
+                placeholder: 'Name',
+              ),
               CupertinoButton(
                 onPressed: () => _openSubSheet(context),
                 child: Text('Show More Details...'),
