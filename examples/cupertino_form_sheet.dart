@@ -19,12 +19,22 @@ class CupertinoFormSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+
+    // Define correct form sheet sizes
+    final double formSheetHeight = isPortrait ? 1006 : 746;
+    const double formSheetWidth = 712;
+
     return SafeArea(
-      minimum: const EdgeInsets.symmetric(vertical: 60),
+      minimum: EdgeInsets.symmetric(
+        vertical: isPortrait ? (size.height - formSheetHeight) / 2 : (size.height - formSheetHeight) / 2,
+      ),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 712,
+          constraints: BoxConstraints(
+            maxWidth: formSheetWidth,
+            maxHeight: formSheetHeight,
           ),
           child: CupertinoPopupSurface(
             isSurfacePainted: true,
