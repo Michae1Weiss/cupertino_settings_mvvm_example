@@ -1,3 +1,13 @@
+// See: https://github.com/jamesblasco/modal_bottom_sheet/issues/166
+// Also: https://github.com/jamesblasco/modal_bottom_sheet/issues/30
+
+// iPad 11 2420 x 1668 264 ppi
+// iPad 13 2752 x 2064 264 ppi
+
+// iPad 11 resolution (device-independent pixel): 1210 x 834
+// iPad 11 portrait form sheet size 1006 x 712: height 1006; width 712;
+// iPad 11 landscape form sheet size 746 x 712: height 746; width 712;
+
 import 'package:flutter/cupertino.dart';
 import 'package:sheet/route.dart';
 import 'package:sheet/sheet.dart';
@@ -14,7 +24,7 @@ class CupertinoFormSheet extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(
-            maxWidth: 650,
+            maxWidth: 712,
           ),
           child: CupertinoPopupSurface(
             isSurfacePainted: true,
@@ -87,9 +97,7 @@ class _PageBasedCupertinoSheetRoute<T> extends CupertinoFormSheetRoute<T> {
             return _CupertinoFormSheetDecorationBuilder(
               backgroundColor: backgroundColor,
               topRadius: Radius.circular(10.0),
-              child: (ModalRoute.of(context)!.settings
-                      as CupertinoFormSheetPage<T>)
-                  .child,
+              child: (ModalRoute.of(context)!.settings as CupertinoFormSheetPage<T>).child,
             );
           },
         );
@@ -129,8 +137,7 @@ class _CupertinoFormSheetDecorationBuilder extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(top: topRadius),
-              color: backgroundColor ??
-                  CupertinoColors.systemBackground.resolveFrom(context),
+              color: backgroundColor ?? CupertinoColors.systemBackground.resolveFrom(context),
             ),
             child: MediaQuery.removePadding(
               context: context,
