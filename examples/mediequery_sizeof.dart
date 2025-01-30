@@ -5,6 +5,7 @@ import 'cupertino_form_sheet.dart';
 
 void main() {
   return runApp(CupertinoApp(
+    theme: CupertinoThemeData(brightness: Brightness.light),
     home: Home(),
   ));
 }
@@ -19,7 +20,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
+    // Size size = MediaQuery.sizeOf(context);
     widget.couter += 1;
     return CupertinoPageScaffold(
       child: Center(
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
             Text('Counter: ${widget.couter}'),
             CupertinoButton(
               child: Text('Open a Sheet'),
-              onPressed: () => size.width > 650 ? _openFormSheet(context) : _openSheet(context),
+              onPressed: () => _openSheet(context),
             ),
           ],
         ),
@@ -37,20 +38,26 @@ class _HomeState extends State<Home> {
   }
 
   void _openSheet(context) {
+    Size size = MediaQuery.sizeOf(context);
+
     Navigator.of(context).push(
-      CupertinoSheetRoute(
-        builder: (context) => Child(),
-      ),
+      size.width > 650
+          ? CupertinoFormSheetRoute(
+              builder: (context) => Child(),
+            )
+          : CupertinoSheetRoute(
+              builder: (context) => Child(),
+            ),
     );
   }
 
-  void _openFormSheet(context) {
-    Navigator.of(context).push(
-      CupertinoFormSheetRoute(
-        builder: (context) => Child(),
-      ),
-    );
-  }
+  // void _openFormSheet(context) {
+  //   Navigator.of(context).push(
+  //     CupertinoFormSheetRoute(
+  //       builder: (context) => Child(),
+  //     ),
+  //   );
+  // }
 }
 
 class Child extends StatelessWidget {
