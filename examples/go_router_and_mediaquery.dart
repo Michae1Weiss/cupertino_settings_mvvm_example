@@ -14,15 +14,16 @@ GoRouter router = GoRouter(
   initialLocation: '/',
   redirect: (context, state) {
     if (isWideScreen(context)) {
-      return '/big/';
+      return context.namedLocation('bigHome');
     } else {
-      return '/';
+      return context.namedLocation('smallHome');
     }
   },
   routes: [
     // small screen
     GoRoute(
       path: '/',
+      name: 'smallHome',
       pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
       routes: [
         GoRoute(
@@ -35,7 +36,8 @@ GoRouter router = GoRouter(
     ),
     // big screen
     GoRoute(
-      path: '/big/',
+      path: '/',
+      name: 'bigHome',
       pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
       routes: [
         GoRoute(
