@@ -4,21 +4,13 @@ import 'package:sheet/route.dart';
 
 import 'cupertino_form_sheet.dart';
 
-bool isWideScreen(BuildContext context) {
-  final double width = MediaQuery.sizeOf(context).width;
-  print("Hey, rebuild here!");
-  return width > 750; // Adjust breakpoint as needed
+bool isWideScreen(double width) {
+  print("Screen size is $width");
+  return width > 750; // Set breakpoint
 }
 
-GoRouter router = GoRouter(
-  initialLocation: '/',
-  redirect: (context, state) {
-    if (isWideScreen(context)) {
-      return context.namedLocation('bigHome');
-    } else {
-      return context.namedLocation('smallHome');
-    }
-  },
+GoRouter routerSmall = GoRouter(
+  // initialLocation: '/',
   routes: [
     // small screen
     GoRoute(
@@ -34,10 +26,14 @@ GoRouter router = GoRouter(
         ),
       ],
     ),
-    // big screen
+  ],
+);
+
+GoRouter routerWide = GoRouter(
+  initialLocation: '/',
+  routes: [
     GoRoute(
       path: '/',
-      name: 'bigHome',
       pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
       routes: [
         GoRoute(
@@ -51,29 +47,28 @@ GoRouter router = GoRouter(
   ],
 );
 
-// GoRouter routerWide = GoRouter(
-//   initialLocation: '/',
-//   routes: [
-//     GoRoute(
-//       path: '/',
-//       pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
-//       routes: [
-//         GoRoute(
-//           path: 'detail',
-//           pageBuilder: (context, __) {
-//             return CupertinoFormSheetPage(child: Detail());
-//           },
-//         ),
-//       ],
-//     ),
-//   ],
-// );
-
 void main() {
-  runApp(CupertinoApp.router(
-    theme: CupertinoThemeData(brightness: Brightness.light),
-    routerConfig: router,
-  ));
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure media query is available
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  late final GoRouter router;
+
+  MyApp({super.key}) {
+    final double screenWidth = WidgetsBinding.instance.platformDispatcher.views.first.physicalSize.width /
+        WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio;
+
+    router = isWideScreen(screenWidth) ? routerWide : routerSmall;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoApp.router(
+      theme: CupertinoThemeData(brightness: Brightness.light),
+      routerConfig: router,
+    );
+  }
 }
 
 class App extends StatelessWidget {
@@ -88,7 +83,7 @@ class App extends StatelessWidget {
           child: Column(
             children: [
               CupertinoButton(
-                onPressed: () => context.go('/detail'),
+                onPressed: () => context.go('./detail'),
                 child: Text('Open Detail Sheet'),
               ),
             ],
@@ -127,10 +122,13 @@ class Detail extends StatelessWidget {
 
   void _openSubSheet(BuildContext context) {
     Navigator.of(context).push(
-      isWideScreen(context)
-          ? CupertinoFormSheetRoute(builder: (context) => SubDetail()) // Wide screen: Form Sheet
-          : CupertinoSheetRoute(builder: (context) => SubDetail()), // Small screen: Bottom Sheet
+      CupertinoSheetRoute(builder: (context) => SubDetail()), // Small screen: Bottom Sheet
     );
+    // Navigator.of(context).push(
+    //   isWideScreen(context)
+    //       ? CupertinoFormSheetRoute(builder: (context) => SubDetail()) // Wide screen: Form Sheet
+    //       : CupertinoSheetRoute(builder: (context) => SubDetail()), // Small screen: Bottom Sheet
+    // );
   }
 }
 
