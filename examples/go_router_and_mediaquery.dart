@@ -2,7 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sheet/route.dart';
 
-import 'mediequery_sizeof.dart';
+import 'cupertino_form_sheet.dart';
+
+bool isWideScreen(BuildContext context) {
+  final double width = MediaQuery.sizeOf(context).width;
+  return width > 750; // Adjust breakpoint as needed
+}
 
 GoRouter router = GoRouter(
   initialLocation: '/',
@@ -13,7 +18,11 @@ GoRouter router = GoRouter(
       routes: [
         GoRoute(
           path: 'detail',
-          pageBuilder: (_, __) => CupertinoSheetPage(child: Detail()),
+          pageBuilder: (context, __) {
+            return isWideScreen(context)
+                ? CupertinoFormSheetPage(child: Detail()) // Wide screen: Form Sheet
+                : CupertinoSheetPage(child: Detail()); // Small screen: Bottom Sheet
+          },
         ),
       ],
     ),
@@ -73,9 +82,11 @@ class Detail extends StatelessWidget {
     );
   }
 
-  void _openSubSheet(context) {
+  void _openSubSheet(BuildContext context) {
     Navigator.of(context).push(
-      CupertinoSheetRoute(builder: (context) => SubDetail()),
+      isWideScreen(context)
+          ? CupertinoFormSheetRoute(builder: (context) => SubDetail()) // Wide screen: Form Sheet
+          : CupertinoSheetRoute(builder: (context) => SubDetail()), // Small screen: Bottom Sheet
     );
   }
 }
