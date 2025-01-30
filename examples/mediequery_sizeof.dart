@@ -64,9 +64,19 @@ class Child extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      child: Center(
-        child: CupertinoTextField(
-          placeholder: 'Name',
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Child'),
+      ),
+      child: SafeArea(
+        child: Center(
+          child: CupertinoFormSection(
+            children: [
+              CupertinoTextFormFieldRow(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                placeholder: 'Name',
+              ),
+            ],
+          ),
         ),
       ),
     );
