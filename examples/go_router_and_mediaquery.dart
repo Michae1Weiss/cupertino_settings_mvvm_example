@@ -95,25 +95,65 @@ class App extends StatelessWidget {
 }
 
 class Detail extends StatelessWidget {
+  const Detail({Key? key}) : super(key: key);
+
+  /// Shows a Cupertino confirmation dialog and resolves to true if the user
+  /// confirms that they want to pop the page.
+  Future<bool?> _showBackDialog(BuildContext context) {
+    return showCupertinoDialog<bool>(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you really want to leave this sheet?'),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.of(context).pop(false),
+          ),
+          CupertinoDialogAction(
+            isDestructiveAction: true,
+            child: const Text('Leave'),
+            onPressed: () => Navigator.of(context).pop(true),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Detail'),
-      ),
-      child: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Text('Detail'),
-              CupertinoTextField(
-                placeholder: 'Name',
-              ),
-              CupertinoButton(
-                onPressed: () => _openSubSheet(context),
-                child: Text('Show More Details...'),
-              )
-            ],
+    return PopScope<Object?>(
+      // Prevent the system from automatically popping the route.
+      canPop: false,
+      // This callback is invoked when a pop gesture or programmatic pop is attempted.
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        // If didPop is true, then the Navigator already popped the route.
+        if (didPop) return;
+        // Show the confirmation dialog.
+        final bool shouldPop = await _showBackDialog(context) ?? false;
+        // If the user confirmed, manually pop the route.
+        if (shouldPop && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(
+          middle: Text('Detail'),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                const Text('Detail'),
+                const CupertinoTextField(
+                  placeholder: 'Name',
+                ),
+                CupertinoButton(
+                  onPressed: () => _openSubSheet(context),
+                  child: const Text('Show More Details...'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -122,26 +162,23 @@ class Detail extends StatelessWidget {
 
   void _openSubSheet(BuildContext context) {
     Navigator.of(context).push(
-      CupertinoSheetRoute(builder: (context) => SubDetail()), // Small screen: Bottom Sheet
+      CupertinoSheetRoute(builder: (context) => const SubDetail()),
     );
-    // Navigator.of(context).push(
-    //   isWideScreen(context)
-    //       ? CupertinoFormSheetRoute(builder: (context) => SubDetail()) // Wide screen: Form Sheet
-    //       : CupertinoSheetRoute(builder: (context) => SubDetail()), // Small screen: Bottom Sheet
-    // );
   }
 }
 
 class SubDetail extends StatelessWidget {
+  const SubDetail({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
+      navigationBar: const CupertinoNavigationBar(
         middle: Text('More Details'),
       ),
       child: SafeArea(
         child: Center(
-          child: Text('More Details'),
+          child: const Text('More Details'),
         ),
       ),
     );
