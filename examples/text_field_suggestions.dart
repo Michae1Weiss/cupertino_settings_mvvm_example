@@ -49,7 +49,7 @@ void main() {
   runApp(const MyApp());
 }
 
-/// Our top‑level CupertinoApp.
+/// The top‑level Cupertino app.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// The home page simply shows a button that launches our “form sheet.”
+/// A simple home page with a button that opens the form sheet.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
         child: CupertinoButton.filled(
           child: const Text('Open Form'),
           onPressed: () {
-            // Display our form sheet as a modal popup.
+            // Display the form sheet as a modal popup.
             showCupertinoModalPopup(
               context: context,
               builder: (context) => const FormSheet(),
@@ -95,7 +95,7 @@ class CustomerPrice {
   CustomerPrice(this.name, this.price);
 }
 
-/// Our sample data. In a real MVVM app this might come from a repository.
+/// Sample data; in a real MVVM app, this might come from a repository.
 final List<CustomerPrice> testList = [
   CustomerPrice("John", 1),
   CustomerPrice("Max", 2),
@@ -106,8 +106,7 @@ final List<CustomerPrice> testList = [
   CustomerPrice("Carl", null),
 ];
 
-/// Our view-model (very minimal for demonstration) manages the text fields
-/// and suggestion filtering.
+/// A simple view-model that manages text editing controllers and suggestion filtering.
 class FormViewModel extends ChangeNotifier {
   final TextEditingController customerController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -116,11 +115,10 @@ class FormViewModel extends ChangeNotifier {
   List<int> getPriceSuggestions() {
     final customerName = customerController.text.trim().toLowerCase();
     if (customerName.isEmpty) return [];
-    // Find all prices for the exact customer name (ignoring case) that are not null.
     return testList
         .where((cp) => cp.name.toLowerCase() == customerName && cp.price != null)
         .map((cp) => cp.price!)
-        .toSet() // remove duplicates if any
+        .toSet() // Remove duplicates.
         .toList();
   }
 
@@ -132,7 +130,7 @@ class FormViewModel extends ChangeNotifier {
   }
 }
 
-/// The form sheet is a centered modal that uses CupertinoForm elements.
+/// The form sheet is displayed as a centered modal popup.
 class FormSheet extends StatefulWidget {
   const FormSheet({super.key});
 
@@ -147,8 +145,7 @@ class _FormSheetState extends State<FormSheet> {
   void initState() {
     super.initState();
     _viewModel = FormViewModel();
-    // When the customer name changes, update the UI so that the suggestion
-    // button can appear/disappear.
+    // Listen for changes in the customer name so we can update suggestions.
     _viewModel.customerController.addListener(() {
       setState(() {});
     });
@@ -162,10 +159,9 @@ class _FormSheetState extends State<FormSheet> {
 
   @override
   Widget build(BuildContext context) {
-    // Compute the suggestions from the view model.
     final suggestions = _viewModel.getPriceSuggestions();
 
-    // A simple centered dialog-like container to mimic a form sheet.
+    // A centered container to mimic a form sheet for iPad.
     return CupertinoPopupSurface(
       isSurfacePainted: true,
       child: Container(
@@ -174,43 +170,47 @@ class _FormSheetState extends State<FormSheet> {
         child: CupertinoFormSection.insetGrouped(
           header: const Text('Customer Information'),
           children: [
-            // Customer name field.
+            // Customer field using CupertinoTextFormFieldRow.
             CupertinoTextFormFieldRow(
               prefix: const Text('Customer'),
               placeholder: 'Enter name',
               controller: _viewModel.customerController,
             ),
-            // Price field with a trailing PullDownButton (if suggestions exist).
-            CupertinoTextFormFieldRow(
+            // Price field using a CupertinoFormRow and a CupertinoTextField that supports a suffix.
+            CupertinoFormRow(
               prefix: const Text('Price'),
-              placeholder: 'Enter new price',
-              controller: _viewModel.priceController,
-              // We add the pull-down only when we have suggestions.
-              // The PullDownButton icon is minimal and consistent with iOS.
-              suffix: suggestions.isNotEmpty
-                  ? PullDownButton(
-                      itemBuilder: (context) {
-                        // Build a menu item for each suggestion.
-                        return suggestions
-                            .map(
-                              (price) => PullDownMenuItem(
-                                title: price.toString(),
-                                onTap: () {
-                                  // When tapped, update the price text field.
-                                  _viewModel.priceController.text = price.toString();
-                                },
-                              ),
-                            )
-                            .toList();
-                      },
-                      buttonBuilder: (context, showMenu) => CupertinoButton(
-                        onPressed: showMenu,
-                        padding: EdgeInsets.zero,
-                        child: const Icon(CupertinoIcons.chevron_down_circle),
-                      ),
-                    )
-                  : null,
+              child: CupertinoTextField.borderless(
+                controller: _viewModel.priceController,
+                placeholder: 'Enter new price',
+                // Only show the pull‑down button if there are suggestions.
+                suffixMode: OverlayVisibilityMode.always,
+                suffix: suggestions.isNotEmpty
+                    ? SizedBox(
+                        height: 34, // Constrains button height to fit within the row
+                        child: PullDownButton(
+                          itemBuilder: (context) {
+                            return suggestions
+                                .map(
+                                  (price) => PullDownMenuItem(
+                                    title: price.toString(),
+                                    onTap: () {
+                                      _viewModel.priceController.text = price.toString();
+                                    },
+                                  ),
+                                )
+                                .toList();
+                          },
+                          buttonBuilder: (context, showMenu) => CupertinoButton(
+                            onPressed: showMenu,
+                            padding: EdgeInsets.zero,
+                            child: const Icon(CupertinoIcons.search, size: 20), // Reduce icon size if necessary
+                          ),
+                        ),
+                      )
+                    : null,
+              ),
             ),
+            CupertinoSearchTextField()
           ],
         ),
       ),
