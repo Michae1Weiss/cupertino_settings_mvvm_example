@@ -94,6 +94,64 @@ class App extends StatelessWidget {
   }
 }
 
+class DetailNice extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      // This callback is called when the user attempts to pop the route.
+      onWillPop: () async {
+        final shouldLeave = await showCupertinoDialog<bool>(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you really want to leave this sheet?'),
+            actions: [
+              CupertinoDialogAction(
+                child: Text('Cancel'),
+                onPressed: () => Navigator.of(context).pop(false),
+              ),
+              CupertinoDialogAction(
+                child: Text('Leave'),
+                isDestructiveAction: true,
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
+            ],
+          ),
+        );
+        // If user taps outside or presses back, treat it as a cancel.
+        return shouldLeave ?? false;
+      },
+      child: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text('Detail'),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                Text('Detail'),
+                CupertinoTextField(
+                  placeholder: 'Name',
+                ),
+                CupertinoButton(
+                  onPressed: () => _openSubSheet(context),
+                  child: Text('Show More Details...'),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _openSubSheet(BuildContext context) {
+    Navigator.of(context).push(
+      CupertinoSheetRoute(builder: (context) => SubDetail()),
+    );
+  }
+}
+
 class Detail extends StatelessWidget {
   const Detail({Key? key}) : super(key: key);
 
@@ -123,6 +181,7 @@ class Detail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope<Object?>(
+      /*
       // Prevent the system from automatically popping the route.
       canPop: false,
       // This callback is invoked when a pop gesture or programmatic pop is attempted.
@@ -134,6 +193,36 @@ class Detail extends StatelessWidget {
         // If the user confirmed, manually pop the route.
         if (shouldPop && context.mounted) {
           Navigator.of(context).pop();
+        }
+      },
+      */
+
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        // This is where you show your confirmation dialog:
+        if (!didPop) {
+          final bool shouldPop = await showCupertinoDialog<bool>(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  title: const Text('Are you sure?'),
+                  content: const Text('Do you really want to close this sheet?'),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: const Text('Cancel'),
+                      onPressed: () => Navigator.of(context).pop(false),
+                    ),
+                    CupertinoDialogAction(
+                      isDestructiveAction: true,
+                      child: const Text('Leave'),
+                      onPressed: () => Navigator.of(context).pop(true),
+                    ),
+                  ],
+                ),
+              ) ??
+              false;
+          if (shouldPop && context.mounted) {
+            Navigator.pop(context);
+          }
         }
       },
       child: CupertinoPageScaffold(
