@@ -28,6 +28,11 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  # flutter:
+  #   url: git@github.com:Michae1Weiss/flutter.git
+  #   ref: cupertino-add-cancel-back-localization
+  #   sdk: flutter
+  #   path: packages/flutter/
   flutter:
     sdk: flutter
 
@@ -45,6 +50,8 @@ dependencies:
   flutter_launcher_icons: ^0.14.3
   pull_down_button: ^0.10.2
   sheet: ^1.0.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

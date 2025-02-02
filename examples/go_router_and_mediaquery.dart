@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sheet/route.dart';
+import 'package:sheet/route.dart' as sheet;
 
 import 'cupertino_form_sheet.dart';
 
@@ -9,20 +9,49 @@ bool isWideScreen(double width) {
   return width > 750; // Set breakpoint
 }
 
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+final nestedNavigationKey = GlobalKey<NavigatorState>();
+
 GoRouter routerSmall = GoRouter(
+  navigatorKey: rootNavigatorKey,
   // initialLocation: '/',
   routes: [
     // small screen
     GoRoute(
       path: '/',
       name: 'smallHome',
-      pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
+      pageBuilder: (_, __) => sheet.CupertinoExtendedPage(child: App()),
       routes: [
         GoRoute(
           path: 'detail',
           pageBuilder: (context, __) {
-            return CupertinoSheetPage(child: Detail()); // Small screen: Bottom Sheet
+            return sheet.CupertinoSheetPage(child: Detail()); // Small screen: Bottom Sheet
           },
+        ),
+        ShellRoute(
+          navigatorKey: nestedNavigationKey,
+          parentNavigatorKey: rootNavigatorKey,
+          pageBuilder: (context, state, child) => sheet.CupertinoSheetPage(key: state.pageKey, child: child),
+          routes: [
+            GoRoute(
+              path: 'shell-detail',
+              pageBuilder: (context, state) {
+                return CupertinoFormSheetPage(
+                  child: Detail(),
+                );
+              },
+              routes: [
+                GoRoute(
+                  path: 'subdetail',
+                  pageBuilder: (context, state) {
+                    return CupertinoFormSheetPage(
+                      child: SubDetail(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     ),
@@ -34,7 +63,7 @@ GoRouter routerWide = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      pageBuilder: (_, __) => CupertinoExtendedPage(child: App()),
+      pageBuilder: (_, __) => sheet.CupertinoExtendedPage(child: App()),
       routes: [
         GoRoute(
           path: 'detail',
@@ -251,7 +280,7 @@ class Detail extends StatelessWidget {
 
   void _openSubSheet(BuildContext context) {
     Navigator.of(context).push(
-      CupertinoSheetRoute(builder: (context) => const SubDetail()),
+      CupertinoFormSheetRoute(builder: (context) => const SubDetail()),
     );
   }
 }
