@@ -1,0 +1,2 @@
+/home/mike/dev/flutter/cupertino_settings_mvvm_example/android/app/.cxx/Debug/69235m6n/x86_64/CMakeFiles/edit_cache.dir
+/home/mike/dev/flutter/cupertino_settings_mvvm_example/android/app/.cxx/Debug/69235m6n/x86_64/CMakeFiles/rebuild_cache.dir

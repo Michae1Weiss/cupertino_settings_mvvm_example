@@ -1,0 +1,1 @@
+/home/mike/dev/flutter/cupertino_settings_mvvm_example/build/app/intermediates/cxx/Debug/69235m6n/obj/armeabi-v7a
