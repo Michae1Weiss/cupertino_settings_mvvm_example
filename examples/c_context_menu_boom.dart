@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 void main() {
-  final app = CupertinoApp(home: CupertinoMenuExample());
+  final app = CupertinoApp(
+    home: CupertinoMenuExample(),
+    theme: CupertinoThemeData(brightness: Brightness.light),
+  );
   runApp(app);
 }
 
@@ -34,7 +37,7 @@ class CupertinoMenuExample extends StatelessWidget {
                     ),
                   ],
                   child: SizedBox(
-                    width: double.infinity, // Ensure proper width constraint
+                    width: 200, // Ensure proper width constraint
                     child: CupertinoListTile(title: Text('Expandable')),
                   ),
                 ),
