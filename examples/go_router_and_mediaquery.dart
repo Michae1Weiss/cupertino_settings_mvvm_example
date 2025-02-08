@@ -209,69 +209,23 @@ class Detail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope<Object?>(
-      /*
-      // Prevent the system from automatically popping the route.
-      canPop: false,
-      // This callback is invoked when a pop gesture or programmatic pop is attempted.
-      onPopInvokedWithResult: (bool didPop, Object? result) async {
-        // If didPop is true, then the Navigator already popped the route.
-        if (didPop) return;
-        // Show the confirmation dialog.
-        final bool shouldPop = await _showBackDialog(context) ?? false;
-        // If the user confirmed, manually pop the route.
-        if (shouldPop && context.mounted) {
-          Navigator.of(context).pop();
-        }
-      },
-      */
-
-      canPop: false,
-      onPopInvokedWithResult: (bool didPop, Object? result) async {
-        // This is where you show your confirmation dialog:
-        if (!didPop) {
-          final bool shouldPop = await showCupertinoDialog<bool>(
-                context: context,
-                builder: (context) => CupertinoAlertDialog(
-                  title: const Text('Are you sure?'),
-                  content: const Text('Do you really want to close this sheet?'),
-                  actions: [
-                    CupertinoDialogAction(
-                      child: const Text('Cancel'),
-                      onPressed: () => Navigator.of(context).pop(false),
-                    ),
-                    CupertinoDialogAction(
-                      isDestructiveAction: true,
-                      child: const Text('Leave'),
-                      onPressed: () => Navigator.of(context).pop(true),
-                    ),
-                  ],
-                ),
-              ) ??
-              false;
-          if (shouldPop && context.mounted) {
-            Navigator.pop(context);
-          }
-        }
-      },
-      child: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          middle: Text('Detail'),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: Column(
-              children: [
-                const Text('Detail'),
-                const CupertinoTextField(
-                  placeholder: 'Name',
-                ),
-                CupertinoButton(
-                  onPressed: () => _openSubSheet(context),
-                  child: const Text('Show More Details...'),
-                ),
-              ],
-            ),
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Detail'),
+      ),
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              const Text('Detail'),
+              const CupertinoTextField(
+                placeholder: 'Name',
+              ),
+              CupertinoButton(
+                onPressed: () => _openSubSheet(context),
+                child: const Text('Show More Details...'),
+              ),
+            ],
           ),
         ),
       ),

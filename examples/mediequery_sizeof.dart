@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sheet/route.dart';
+import 'package:sheet/route.dart' as sheet;
 
 import 'cupertino_form_sheet.dart';
 
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
           ? CupertinoFormSheetRoute(
               builder: (context) => Child(),
             )
-          : CupertinoSheetRoute(
+          : sheet.CupertinoSheetRoute(
               builder: (context) => Child(),
             ),
     );

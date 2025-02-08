@@ -17,7 +17,7 @@ GoRouter router = GoRouter(
         ShellRoute(
           navigatorKey: nestedNavigationKey,
           parentNavigatorKey: rootNavigatorKey,
-          pageBuilder: (context, state, child) => CupertinoFormSheetPage(key: state.pageKey, child: child),
+          pageBuilder: (context, state, child) => sheet.CupertinoSheetPage(key: state.pageKey, child: WillPopPage(child: child)),
           routes: [
             GoRoute(
               path: 'shell-detail',
@@ -57,6 +57,31 @@ void main() {
   runApp(app);
 }
 
+class WillPopPage extends StatelessWidget {
+  const WillPopPage({
+    required this.child,
+  });
+
+  /// The content to be shown in the [Route] created by this page.
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        // return false;
+        // Check if there's another page above Detail
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop(); // Pop only SubDetail
+          return false; // Prevent Detail from closing
+        }
+        return true; // Allow Detail to close if nothing is above it
+      },
+      child: child,
+    );
+  }
+}
+
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -83,7 +108,19 @@ class Home extends StatelessWidget {
 class Detail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return
+        // WillPopScope(
+        //   onWillPop: () async {
+        //     return false;
+        // Check if there's another page above Detail
+        // if (Navigator.of(context).canPop()) {
+        //   Navigator.of(context).pop(); // Pop only SubDetail
+        //   return false; // Prevent Detail from closing
+        // }
+        // return true; // Allow Detail to close if nothing is above it
+        // },
+        // child:
+        CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text('Detail'),
       ),
@@ -107,6 +144,7 @@ class Detail extends StatelessWidget {
           ),
         ),
       ),
+      // ),
     );
   }
 
