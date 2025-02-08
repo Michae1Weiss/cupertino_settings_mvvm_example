@@ -1,7 +1,10 @@
+// Source: https://github.com/flutter/flutter/issues/122951
+
 import 'package:flutter/cupertino.dart';
 
 void main() => runApp(const CupertinoApp(
       home: ContextMenuExample(),
+      theme: CupertinoThemeData(brightness: Brightness.light),
     ));
 
 class ContextMenuExample extends StatefulWidget {

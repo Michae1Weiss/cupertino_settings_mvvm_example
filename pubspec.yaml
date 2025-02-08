@@ -52,6 +52,7 @@ dependencies:
   sheet: ^1.0.0
   flutter_localizations:
     sdk: flutter
+  super_context_menu: ^0.8.24
 
 dev_dependencies:
   flutter_test:
