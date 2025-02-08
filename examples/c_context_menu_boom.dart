@@ -33,7 +33,10 @@ class CupertinoMenuExample extends StatelessWidget {
                       child: const Text("Delete"),
                     ),
                   ],
-                  child: CupertinoListTile(title: Text('Expandable')),
+                  child: SizedBox(
+                    width: double.infinity, // Ensure proper width constraint
+                    child: CupertinoListTile(title: Text('Expandable')),
+                  ),
                 ),
               ],
             ),
