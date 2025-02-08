@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 void main() {
-  final app = CupertinoApp(
-    home: CupertinoMenuExample(),
-    theme: CupertinoThemeData(brightness: Brightness.light),
-  );
+  final app = CupertinoApp(home: CupertinoMenuExample());
   runApp(app);
 }
 
@@ -19,27 +16,50 @@ class CupertinoMenuExample extends StatelessWidget {
               children: [
                 CupertinoListTile(title: Text('Name')),
                 CupertinoListTile(title: Text('Age')),
-                CupertinoContextMenu(
-                  actions: [
-                    CupertinoContextMenuAction(
-                      trailingIcon: CupertinoIcons.share,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text("Share"),
-                    ),
-                    CupertinoContextMenuAction(
-                      trailingIcon: CupertinoIcons.delete,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text("Delete"),
-                    ),
-                  ],
-                  child: SizedBox(
-                    width: 200, // Ensure proper width constraint
-                    child: CupertinoListTile(title: Text('Expandable')),
-                  ),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return CupertinoContextMenu(
+                      actions: [
+                        CupertinoContextMenuAction(
+                          trailingIcon: CupertinoIcons.share,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Share"),
+                        ),
+                        CupertinoContextMenuAction(
+                          trailingIcon: CupertinoIcons.delete,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Delete"),
+                        ),
+                      ],
+                      child: Container(
+                        width: constraints.maxWidth, // Match original tile width
+
+                        child: CupertinoListTile(
+                          backgroundColor: CupertinoColors.secondarySystemGroupedBackground.resolveFrom(context),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          title: Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Text(
+                              "name",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          subtitle: Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: Text(
+                              "formatted date",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          trailing: CupertinoListTileChevron(),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
