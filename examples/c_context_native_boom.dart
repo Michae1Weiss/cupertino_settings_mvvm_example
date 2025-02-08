@@ -41,7 +41,10 @@ class CupertinoMenuExample extends StatelessWidget {
                 ContextMenuWidget(
                   // force to use dark brightness
                   // mobileMenuWidgetBuilder: DefaultMobileMenuWidgetBuilder(brightness: Brightness.dark),
-                  child: CupertinoListTile(title: Text('Test Me (native)!')),
+                  child: CupertinoListTile(
+                    title: Text('Test Me (native)!'),
+                    backgroundColor: CupertinoColors.secondarySystemGroupedBackground.resolveFrom(context),
+                  ),
                   menuProvider: (_) {
                     return Menu(
                       children: [
