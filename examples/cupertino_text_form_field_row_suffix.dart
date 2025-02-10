@@ -13,28 +13,40 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: CupertinoTextFormFieldRow(
-                  prefix: Text('Name'),
-                  placeholder: 'Required',
-                ),
-              ),
-              SizedBox(
-                width: 50.0,
-                child: CupertinoListTile(
-                  title: Icon(
-                    CupertinoIcons.add,
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Example'),
+      ),
+      child: SafeArea(
+        child: CupertinoFormSection.insetGrouped(
+          header: Text('Example Form Field Row With Suffix'),
+          children: [
+            // CupertinoTextFormFieldRow(),
+            Row(
+              children: [
+                Expanded(
+                  child: CupertinoTextFormFieldRow(
+                    prefix: Text('Name'),
+                    placeholder: 'Required',
                   ),
                 ),
-              )
-            ],
-          ),
-        ],
+                // if (false)
+                LimitedBox(
+                  // width: 50.0,
+                  // fit: BoxFit.cover,
+                  maxWidth: 34,
+
+                  child: CupertinoListTile(
+                    padding: EdgeInsets.zero,
+                    title: Icon(
+                      CupertinoIcons.add,
+                      // size: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
